@@ -1,0 +1,83 @@
+{
+	"standalone": [],
+	"groups": [
+		{
+			"groupTitle": "AIDX 16.1",
+			"validators": [
+				{
+					"selector": "16.1FlightLegNotifRQ",
+					"schemaDirectory": "/schemas/aidx161",
+					"successMessage": "Valid IATA_AIDX_FlightLegNotifRQ Message(s). AIDX Schema Version 16.1",
+					"buttonTitle": "IATA_AIDX_FlightLegNotifRQ",
+					"files": [
+							"IATA_AIDX_FlightLegNotifRQ.xsd"
+					]
+				},	
+				{
+					"selector": "16.1FlightLegRQ",
+					"schemaDirectory": "/schemas/aidx161",
+					"successMessage": "Valid IATA_AIDX_FlightRQ Message(s). AIDX Schema Version 16.1",
+					"buttonTitle": "IATA_AIDX_FlightLegRQ",
+					"files": [
+							"IATA_AIDX_FlightLegRQ.xsd"
+					]
+				},
+				{
+					"selector": "16.1FlightLegRS",
+					"schemaDirectory": "/schemas/aidx161",
+					"successMessage": "Valid IATA_AIDX_FlightRS Message(s). AIDX Schema Version 16.1",
+					"buttonTitle": "IATA_AIDX_FlightLegRS",
+					"files": [
+							"IATA_AIDX_FlightLegRS.xsd"
+					]
+				}
+			]
+		},
+				{
+			"groupTitle": "AIDX 17.1",
+			"validators": [
+				{
+					"selector": "17.1FlightLegNotifRQ",
+					"schemaDirectory": "/schemas/aidx171",
+					"successMessage": "Valid IATA_AIDX_FlightLegNotifRQ Message. AIDX Schema Version 17.1",
+					"buttonTitle": "IATA_AIDX_FlightLegNotifRQ",
+					"files": [
+						"IATA_AIDX_FlightLegNotifRQ.xsd"
+					]
+				},	
+				{
+					"selector": "17.1FlightLegRQ",
+					"schemaDirectory": "/schemas/aidx171",
+					"successMessage": "Valid IATA_AIDX_FlightRQ Message. AIDX Schema Version 17.1",
+					"buttonTitle": "IATA_AIDX_FlightLegRQ",
+					"files": [
+						"IATA_AIDX_FlightLegRQ.xsd"
+					]
+				},
+				{
+					"selector": "17.1FlightLegRS",
+					"schemaDirectory": "/schemas/aidx171",
+					"successMessage": "Valid IATA_AIDX_FlightRS Message. AIDX Schema Version 17.1",
+					"buttonTitle": "IATA_AIDX_FlightLegRS",
+					"files": [
+						"IATA_AIDX_FlightLegRS.xsd"
+					]
+				}
+			]
+		},
+		{
+			"groupTitle": "AIP Schemas",
+			"validators": [
+				{
+					"selector": "AIP v48",
+					"schemaDirectory": "/schemas/aipv48",
+					"successMessage": "Valid AIP Message. AIP Schema Version 48",
+					"buttonTitle": "AIP Version 48",
+					"files": [
+						"SITA_AIP_Message.xsd"
+					]
+				}
+			]
+		}
+	]
+}

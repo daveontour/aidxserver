@@ -1,0 +1,3713 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (http://www.altova.com) by ﻿DD () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:aip="http://www.sita.aero/aip/XMLSchema" xmlns:soap="http://www.w3.org/2001/12/soap-envelope" targetNamespace="http://www.sita.aero/aip/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="48">
+	<xs:include schemaLocation="AIPSimpleTypes.xsd"/>
+	<xs:include schemaLocation="CustomFields.xsd"/>
+	<xs:import/>
+	<xs:complexType name="AIPUniqueIdCondition">
+		<xs:annotation>
+			<xs:documentation>Structure which supports specifying a condition on the AIPUniqueId data elements</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Equal" type="aip:AIPUniqueIDType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Flight record ID value(s) on which to match</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Between" type="aip:AIPUniqueIDRange" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A range of Flight record ID values</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="AIPUniqueIDRange">
+		<xs:annotation>
+			<xs:documentation>Defines a range consisting of aip:AIPUniqueID type boundary values</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="RangeFrom" type="aip:AIPUniqueIDType">
+				<xs:annotation>
+					<xs:documentation>Range minimum (inclusive)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RangeTo" type="aip:AIPUniqueIDType">
+				<xs:annotation>
+					<xs:documentation>Range maximum(inclusive)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="Aircraft">
+		<xs:annotation>
+			<xs:documentation>Aircraft information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Registration" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Aircraft registration</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Type" type="aip:AircraftType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Aircraft type</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SubType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Aircraft subtype</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AircraftConfiguration" type="aip:AircraftConfiguration" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AircraftCollection">
+		<xs:annotation>
+			<xs:documentation>Collection of Aircraft elements</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Aircraft" type="aip:ReferenceDataAircraft" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AircraftConfiguration">
+		<xs:sequence>
+			<xs:element name="SeatCapacity" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:integer">
+							<xs:attribute name="Qualifier" use="required">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="Total|[A-Z]{1}"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Turnaround" type="aip:Turnaround" minOccurs="0"/>
+			<xs:element name="MTO" minOccurs="0">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:decimal">
+							<xs:attribute name="UnitOfMeasure" type="aip:WeightUnit" use="required"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="FuselageClassification" type="aip:AircraftFuselageClassificationType" minOccurs="0"/>
+			<xs:element name="Length" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Aircraft length from nose to tail</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:float">
+							<xs:attribute name="UnitOfMeasure" type="aip:LengthUnit" use="required">
+								<xs:annotation>
+									<xs:documentation>Indicates the unit of measure in which the length is specified</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Width" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Aircraft wingspan width</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:float">
+							<xs:attribute name="UnitOfMeasure" type="aip:LengthUnit" use="required">
+								<xs:annotation>
+									<xs:documentation>Indicates the unit of measure in which the width is specified</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Height" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Aircraft height</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:float">
+							<xs:attribute name="UnitOfMeasure" type="aip:LengthUnit" use="required">
+								<xs:annotation>
+									<xs:documentation>Indicates the unit of measure in which the height is specified</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AircraftDataCondition">
+		<xs:annotation>
+			<xs:documentation>Structure which allows specifying conditions for requesting aircraft master data</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Registration" type="aip:AircraftRegistrationCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Aircraft registration condition</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Type" type="aip:AircraftTypeDataCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Aircraft type</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AircraftRegistrationCondition">
+		<xs:annotation>
+			<xs:documentation>Defines filter conditions based on aircraft registration</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Equal" type="xs:string" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Aircraft registration</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AircraftType">
+		<xs:annotation>
+			<xs:documentation>Aircraft type information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="IATA" type="aip:AircraftTypeIATACodeType">
+						<xs:annotation>
+							<xs:documentation>Aircraft type IATA code</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ICAO" type="aip:AircraftTypeICAOCodeType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Aircraft type ICAO code</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:element name="ICAO" type="aip:AircraftTypeICAOCodeType">
+					<xs:annotation>
+						<xs:documentation>Aircraft type ICAO code</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="Description" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Aircraft type description</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="AircraftConfiguration" type="aip:AircraftTypeConfiguration" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AircraftTypeCollection">
+		<xs:annotation>
+			<xs:documentation>Collection of AircraftType elements</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AircraftType" type="aip:ReferenceDataAircraftType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AircraftTypeConfiguration">
+		<xs:sequence>
+			<xs:element name="SeatCapacity" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:integer">
+							<xs:attribute name="Qualifier" use="required">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="Total|[A-Z]{1}"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Turnaround" type="aip:Turnaround" minOccurs="0"/>
+			<xs:element name="MTO" minOccurs="0">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:decimal">
+							<xs:attribute name="UnitOfMeasure" type="aip:WeightUnit" use="required"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="FuselageClassification" type="aip:AircraftFuselageClassificationType" minOccurs="0"/>
+			<xs:element name="Length" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Aircraft length from nose to tail</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:float">
+							<xs:attribute name="UnitOfMeasure" type="aip:LengthUnit" use="required">
+								<xs:annotation>
+									<xs:documentation>Indicates the unit of measure in which the length is specified</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Width" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Aircraft wingspan width</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:float">
+							<xs:attribute name="UnitOfMeasure" type="aip:LengthUnit" use="required">
+								<xs:annotation>
+									<xs:documentation>Indicates the unit of measure in which the width is specified</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Height" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Aircraft height</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:float">
+							<xs:attribute name="UnitOfMeasure" type="aip:LengthUnit" use="required">
+								<xs:annotation>
+									<xs:documentation>Indicates the unit of measure in which the height is specified</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AircraftTypeDataCondition">
+		<xs:annotation>
+			<xs:documentation>Defines filter conditions based on aircraft type information</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="IATA" type="aip:AircraftTypeIATACodeCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Aircraft type IATA code condition</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ICAO" type="aip:AircraftTypeICAOCodeCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Aircraft type ICAO code condition</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="AircraftTypeIATACodeCondition">
+		<xs:annotation>
+			<xs:documentation>Defines filter conditions based on aircraft IATA code</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Equal" type="aip:AircraftTypeIATACodeType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Aircraft type IATA code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AircraftTypeICAOCodeCondition">
+		<xs:annotation>
+			<xs:documentation>Defines filter conditions based on aircraft ICAO code</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Equal" type="aip:AircraftTypeICAOCodeType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Aircraft type ICAO code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AirlineCodeCondition">
+		<xs:annotation>
+			<xs:documentation>Supports specifying a condition for airline codes</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Equal" type="aip:AirlineCodeType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Airline code(s) on which to match</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AirlineCollection">
+		<xs:annotation>
+			<xs:documentation>Collection of Airline elements</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Airline" type="aip:ReferenceDataAirline" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AirlineCondition">
+		<xs:annotation>
+			<xs:documentation>Operating airline information</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="IATA" type="aip:AirlineCodeCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Airline IATA code condition</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ICAO" type="aip:AirlineCodeCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Airline ICAO code condition</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:element name="Airport" type="aip:Airport">
+		<xs:annotation>
+			<xs:documentation>Airport information</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="Airport">
+		<xs:annotation>
+			<xs:documentation>Airport information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="IATA" type="aip:AirportIATACodeType">
+						<xs:annotation>
+							<xs:documentation>Airport IATA code</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ICAO" type="aip:AirportICAOCodeType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Airport ICAO code</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:element name="ICAO" type="aip:AirportICAOCodeType">
+					<xs:annotation>
+						<xs:documentation>Airport ICAO code</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="Name" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Airport name</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="Language" type="xs:language"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="City" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Airport city name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="State" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Country state name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Country" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Country name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ContactInformation" type="aip:ContactDetailCollection" minOccurs="0"/>
+			<xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Airport description</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="Language" type="xs:language"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AirportCodeCondition">
+		<xs:annotation>
+			<xs:documentation>Operating airline information</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="IATA" type="aip:AirportIATACodeCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>IATA airport code condition</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ICAO" type="aip:AirportICAOCodeCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ICAO airport code condition</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:element name="AirportCodes" type="aip:AirportCodes"/>
+	<xs:complexType name="AirportCodes">
+		<xs:annotation>
+			<xs:documentation>Airport codes information</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:sequence>
+				<xs:element name="IATA" type="aip:AirportIATACodeType">
+					<xs:annotation>
+						<xs:documentation>Airport IATA code</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ICAO" type="aip:AirportICAOCodeType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Airport ICAO code</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:element name="ICAO" type="aip:AirportICAOCodeType">
+				<xs:annotation>
+					<xs:documentation>Airport ICAO code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="AirportCollection">
+		<xs:annotation>
+			<xs:documentation>Collection of Airport elements</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Airport" type="aip:ReferenceDataAirport" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AirportIATACodeCondition">
+		<xs:annotation>
+			<xs:documentation>Defines filter conditions based on airport IATA code</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Equal" type="aip:AirportIATACodeType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>IATA airport code(s) on which to match</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AirportICAOCodeCondition">
+		<xs:annotation>
+			<xs:documentation>Defines filter conditions based on airport ICAO code</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Equal" type="aip:AirportICAOCodeType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>ICAO airport code(s) on which to match</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AssociatedFlightLegCondition">
+		<xs:annotation>
+			<xs:documentation>Defines filter conditions based on information related to a flight's associated (linked) flight leg</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Associated" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Boolean indicating whether an associated leg has been defined for the flight (True) or not (False)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BatchSchedulingDetail">
+		<xs:annotation>
+			<xs:documentation>Structure which contains information for specying batch data load scheduling and interval information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Start" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Date and time at which the batch schedule load will first be activated</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Interval" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>The interval in number of minutes at which the batch load will repeat</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Stop" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date and time at which the batch schedule load will cease</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CodeFieldCondition">
+		<xs:annotation>
+			<xs:documentation>Defines filter conditions based on xs:string based code field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Equal" type="xs:string" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Code(s) on which to match</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Codeshare">
+		<xs:annotation>
+			<xs:documentation>Code share flight identifier</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Airline" type="aip:Company">
+				<xs:annotation>
+					<xs:documentation>Container for airline information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="aip:FlightNumber">
+				<xs:annotation>
+					<xs:documentation>Flight number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="aip:FlightSuffix" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Flight number suffix</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Loads" type="aip:FlightLoadCollection" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Index" type="xs:integer" use="required">
+			<xs:annotation>
+				<xs:documentation>Provides a mechanism whereby elements in a collection could be uniquely identiefied and referenced</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="CodeshareCollection">
+		<xs:annotation>
+			<xs:documentation>Collection of Codeshare elements</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Codeshare" type="aip:Codeshare" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Code share flight</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CodeshareCondition">
+		<xs:sequence>
+			<xs:element name="AirlineCondition" type="aip:AirlineCondition" minOccurs="0"/>
+			<xs:element name="FlightNumberCondition" type="aip:FlightNumberCondition" minOccurs="0"/>
+			<xs:element name="SuffixCondition" type="aip:FlightNumberSuffixCondition" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CodeshareConditionCollection">
+		<xs:sequence>
+			<xs:element name="CodeshareCondition" type="aip:CodeshareCondition" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CommonUseData">
+		<xs:annotation>
+			<xs:documentation>Contains information pertaining to common use equipment usage</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RecordMetadata" type="aip:RecordMetadata" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Container for metadata pertaining to the specific CommonUseData entity</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FlightID" type="aip:FlightID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Container for data elements which uniquely identify the flight which the usage data is associated to</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Workstation">
+				<xs:annotation>
+					<xs:documentation>Identifier of the workstation where the equipment is located</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="UserName">
+				<xs:annotation>
+					<xs:documentation>User name logged on at the workstation</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="WorkstationLogonTime" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Time at which the user logged on to the workstation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WorkstationLogonDuration" type="xs:duration" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Duration of the user's logon session at the workstation  </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EquipmentUsage" type="aip:CommonUseEquipmentUsageCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Collection of equipment usage records reflecting e.g. number of boarding passes printed etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CommonUseEquipmentUsage">
+		<xs:sequence>
+			<xs:element name="EquipmentType">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="ATB"/>
+						<xs:enumeration value="BGR"/>
+						<xs:enumeration value="BTP"/>
+						<xs:enumeration value="DCP"/>
+						<xs:enumeration value="LSR"/>
+						<xs:enumeration value="MSR"/>
+						<xs:enumeration value="OCR"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Count" type="xs:integer"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CommonUseEquipmentUsageCollection">
+		<xs:sequence>
+			<xs:element name="EquipmentUsage" type="aip:CommonUseEquipmentUsage" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Company" type="aip:Company"/>
+	<xs:complexType name="Company">
+		<xs:annotation>
+			<xs:documentation>Company (i.e. airline, handler) information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:annotation>
+					<xs:documentation>The intention here is to ensure either IATA or ICAO is specified but also allow for both to appear simultaneously</xs:documentation>
+				</xs:annotation>
+				<xs:sequence>
+					<xs:element name="IATA" type="aip:AirlineCodeType">
+						<xs:annotation>
+							<xs:documentation>Company IATA code</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ICAO" type="aip:AirlineCodeType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Company ICAO code</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:element name="ICAO" type="aip:AirlineCodeType">
+					<xs:annotation>
+						<xs:documentation>Company ICAO code</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="Name" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Descriptive airline name</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="Language" type="xs:language"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CompanyCodes">
+		<xs:annotation>
+			<xs:documentation>Company (i.e. airline, handler) information</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:annotation>
+				<xs:documentation>The intention here is to ensure either IATA or ICAO is specified but also allow for both to appear simultaneously</xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element name="IATA" type="aip:AirlineCodeType">
+					<xs:annotation>
+						<xs:documentation>Company IATA code</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ICAO" type="aip:AirlineCodeType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Company ICAO code</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:element name="ICAO" type="aip:AirlineCodeType">
+				<xs:annotation>
+					<xs:documentation>Company ICAO code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ContactDetail">
+		<xs:annotation>
+			<xs:documentation>Container for contact details e.g. phone number, email address, etc.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ContactIdentifier" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Identification/role/title of contact e.g. Technical Support Desk, Operations Manager etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ContactPerson" type="aip:PersonName" minOccurs="0"/>
+			<xs:element name="PrimaryPhone" type="xs:string" minOccurs="0"/>
+			<xs:element name="SecondaryPhone" type="xs:string" minOccurs="0"/>
+			<xs:element name="EMail" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ContactDetailCollection">
+		<xs:sequence>
+			<xs:element name="ContactDetail" type="aip:ContactDetail" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Country">
+		<xs:sequence>
+			<xs:element name="Code" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[A-Z]{2,3}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="Language" type="xs:language"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DataPublishResponseType">
+		<xs:annotation>
+			<xs:documentation>Container element for elements describing the outcome of the processing of a single input data element</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Element" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The name of a data element corresponding to a field name in the input message</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Status" type="aip:ResultType">
+				<xs:annotation>
+					<xs:documentation>Indicates success or error</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Code" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Code reflecting the processing result for the specific field
+The set of possible codes will be developed as error scenarios are identified and codes allocated</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Message" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Short message describing the processing result of the specific field</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Detail message describing processing result of the specific field</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DateCondition">
+		<xs:annotation>
+			<xs:documentation>Structure which allows specifying a date-time condition</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Equal" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Scheduled date on which to match</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Between" type="aip:DateRange">
+				<xs:annotation>
+					<xs:documentation>Range of flight scheduled date values to match on</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GreaterThan" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Lower limit scheduled date (inclusive)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LessThan" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Upper limit scheduled date (inclusive)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="DateFieldCondition">
+		<xs:choice>
+			<xs:element name="Equal" type="xs:date"/>
+			<xs:element name="Between" type="aip:DateRange"/>
+			<xs:element name="GreaterThan" type="xs:date"/>
+			<xs:element name="LessThan" type="xs:date"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="DateRange">
+		<xs:annotation>
+			<xs:documentation>Defines a range consisting of xs:date type boundary values</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RangeFrom" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Date range start date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RangeTo" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Date range end date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DateTimeCondition">
+		<xs:annotation>
+			<xs:documentation>Structure which allows specifying a date-time condition</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Equal" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Scheduled date and time on which to match</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Between" type="aip:DateTimeRange">
+				<xs:annotation>
+					<xs:documentation>Range of flight scheduled date and time values to match on</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GreaterThan" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Lower limit scheduled date and time (inclusive)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LessThan" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Upper limit scheduled date and time (inclusive)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="DatetimeFieldCondition">
+		<xs:choice>
+			<xs:element name="Equal" type="xs:dateTime"/>
+			<xs:element name="Between" type="aip:DateTimeRange"/>
+			<xs:element name="GreaterThan" type="xs:dateTime"/>
+			<xs:element name="LessThan" type="xs:dateTime"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="DateTimeRange">
+		<xs:annotation>
+			<xs:documentation>Defines a range consisting of xs:dateTime type boundary values</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RangeFrom" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Range start (inclusive)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RangeTo" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Range end (inclusive)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DEPRECATED_AirportCode">
+		<xs:annotation>
+			<xs:documentation>Airport IATA or ICAO code</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="CodeContext" type="aip:AirportCodeQualifierType" use="required">
+					<xs:annotation>
+						<xs:documentation>Indicates whether specified code is IATA or ICAO</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="DoubleFieldCondition">
+		<xs:choice>
+			<xs:element name="Equal" type="xs:double"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ElementUpdateDetail">
+		<xs:annotation>
+			<xs:documentation>Provides detail about a changed data element e.g. previous value</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ElementIdentification" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>String value (e.g. XPath) which unqieuly identifies a specific changed element in the message</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Action" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Action performed on the element referenced by the value of the ElementIdentification element</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Source" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Source which applied the change to the data</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PreviousValue" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Previous value of the referenced element, where applicable</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ElementUpdateDetailCollection">
+		<xs:annotation>
+			<xs:documentation>Collection of ElementUpdateDetail elements</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ElementUpdateDetail" type="aip:ElementUpdateDetail" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Equipment">
+		<xs:annotation>
+			<xs:documentation>Represents a piece of airport equipment</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EquipmentType" type="aip:EquipmentTypeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Equipment type code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Code" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Equipment code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Location" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Code of airport area where resource is located.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="EquipmentAvailabilityStatus">
+		<xs:annotation>
+			<xs:documentation>Carries information relating to the availability of airport operational equipment in order to assist the accurate allocation of such resources or associated resources</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="aip:Airport" minOccurs="0"/>
+			<xs:element name="EquipmentIdentifier" type="aip:Equipment">
+				<xs:annotation>
+					<xs:documentation>Equipement identifier details</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="Availability" type="aip:Availability"/>
+				<xs:element name="InUse" type="xs:boolean"/>
+			</xs:choice>
+			<xs:element name="TimeSlot" type="aip:OpenEndedTimeSlot" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Status timeslot</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Comments" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Supplemental comments</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Reason" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Status reason</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ExtensionFields" type="aip:ExtensionFields"/>
+	<xs:complexType name="ExtensionFields">
+		<xs:sequence>
+			<xs:element name="ExtensionField" type="aip:GenericField" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="FlightCreateKeyElements">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="aip:FlightCreateKeyElements">
+					<xs:attribute name="Priority" type="xs:integer" use="required">
+						<xs:annotation>
+							<xs:documentation>Assigns a priority to multiple FlightCreateKeyElements elements.  These are processed in order of this priority until the first set of elements which succeed in creating the new flight record.
+A value of 1 has highest priority with priority decreasing as the value increases</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="FlightKeyVariation">
+						<xs:annotation>
+							<xs:documentation>This attribute is set when the elements Airline, FlightNumber and FlightSuffix are populated with values which do not represent the defined contents of these fields resulting in alternative logic being applied in order to create the flight.  An example is a departure control system which might send the call sign, this value will then be populated across these fields with specific logic defined to process the data</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="ATC"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="FlightCreateKeyElements">
+		<xs:annotation>
+			<xs:documentation>Contains elements allowing criteria to be specified on the data fields which uniquely identify a flight record</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Airline" type="aip:CompanyCodes">
+				<xs:annotation>
+					<xs:documentation>Condition applied to the flight airline code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="aip:FlightNumber"/>
+			<xs:element ref="aip:FlightSuffix" minOccurs="0"/>
+			<xs:element name="STO" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Condition applied to the flight STO date and time</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="aip:FlightNature"/>
+			<xs:element name="Airport" type="aip:AirportCodes"/>
+			<xs:element name="Registration" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="FlightCreateKeys" type="aip:FlightCreateKeys"/>
+	<xs:complexType name="FlightCreateKeys">
+		<xs:sequence>
+			<xs:element ref="aip:FlightCreateKeyElements" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightData">
+		<xs:annotation>
+			<xs:documentation>Contains information pertaining to the Flight category</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RecordMetadata" type="aip:RecordMetadata" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Container for metadata pertaining tothe specific FlightData entity</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FlightID" type="aip:FlightID">
+				<xs:annotation>
+					<xs:documentation>Container for three different options to specify flight identification details.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Deleted" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Set to true if the flight record is deleted</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ServiceType" type="aip:FlightServiceTypeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates the IATA SSIM type of service of the flight</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperationalStatus" type="aip:OperationalStatusType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Reflects the operational status code of the flight leg, of use to airlines and operational staff.
+Populated with values from the PADIS Codes List elements 1245 and 2005</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InternationalStatus" type="aip:InternationalStatusType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Specifies whether flight is classified as international, domestic or regional</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PublicRemark" type="aip:PublicRemarkType" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Flight leg status code appropriate for public display.
+Populated with values from the PADIS Codes List elements 1245 and 2005</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FlightEvents" type="aip:FlightEventCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Collection of all events associated with the flight leg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PrimaryAircraft" type="aip:Aircraft" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Primary aircraft information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SecondaryAircraft" type="aip:Aircraft" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Secondary aircraft information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TertiaryAircraft" type="aip:Aircraft" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Tertiary aircraft information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Route" type="aip:Route" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Flight routing information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Codeshares" type="aip:CodeshareCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Information of flights which code-share with the flight leg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ResourceAllocations" type="aip:ResourceAllocationCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Collection of all airport resources associated with flight.
+
+NB: ResourceAllocation elements will appear sorted in ascending order based on the TimeSlot/Start value</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FlightLoads" type="aip:FlightLoadCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Collection of flight load information e.g. pax, freight etc</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FlightServices" type="aip:FlightServiceCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Collection of flight service information e.g. ground-power consumption, pre-conditioned air, de-icing etc. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FlightIrregularityDelays" type="aip:FlightIrregularityDelayCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Collection of flight irregularity delays</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Terminal" type="aip:Terminal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Airport Terminal Code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LinkedFlightID" type="aip:FlightID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Identification information of the flight linked to this flight leg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FlightHandlers" type="aip:FlightHandlerCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Collection of flight operations handler information records</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Exception" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates flight exception information e.g. Military, Ambulance, Presidential etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Transfers" type="aip:TransferCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Information of flights with passengers transferring to/from this flight leg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PassengerServices" type="aip:PassengerServiceCollection" minOccurs="0"/>
+			<xs:element name="CustomFields" type="aip:AIPFlightDataCustomFields" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Provides support for extending schema with custom field definitions</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightDataCollection">
+		<xs:annotation>
+			<xs:documentation>Collection of FlightData elements</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FlightData" type="aip:FlightData" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightDataCondition">
+		<xs:annotation>
+			<xs:documentation>Structure containing elements that allow specifying conditional criteria for requesting flight data</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FlightIDCondition" type="aip:FlightIDCondition" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Specifies conditions for various flight ID elements</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ServiceTypeCondition" type="aip:FlightServiceTypeCondition" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Specifies conditions for matching against flight service type codes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InternationalStatusCondition" type="aip:InternationalStatusCondition" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Structure which supports specifying conditions on flight international status</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FlightEventConditions" type="aip:FlightEventConditionCollection" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Specifies required flight event conditions which Flight data will be selected against</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RouteCondition" type="aip:RouteCondition" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Specifies flight route conditional information which Flight data will be selected against</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ResourceConditions" type="aip:ResourceAllocationConditionCollection" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Specifies flight resource allocation information which Flight data will be selected against</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TerminalCondition" type="aip:TerminalCondition" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Specifies airport terminal information which Flight data will be selected against</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AssociatedFlightLegCondition" type="aip:AssociatedFlightLegCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Specifies conditions for filtering on the information of the flight's associated flight leg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PrimaryAircraftCondition" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RegistrationCondition" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Equal" type="xs:string"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CustomFieldCondition" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="aip:GenericConditionalFieldValue">
+							<xs:attribute name="FieldName" use="required"/>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CodeshareConditions" type="aip:CodeshareConditionCollection" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightEvent">
+		<xs:annotation>
+			<xs:documentation>Represents a single flight event record</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EventCode">
+				<xs:annotation>
+					<xs:documentation>Event type identifier code.
+Refer to PADIS Codes List elements 2005 and 9750</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="CodeContext" type="aip:IATA_PADIS_FlightEventCodeContext"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="DateTime" type="xs:dateTime" nillable="true">
+					<xs:annotation>
+						<xs:documentation>Event date and time including time zone information.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="PartialDateTime" type="aip:PartialDateTime"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="Index" type="xs:unsignedInt">
+			<xs:annotation>
+				<xs:documentation>Provides a mechanism whereby elements in a collection could be uniquely identiefied and referenced</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="FlightEventCodeCondition">
+		<xs:annotation>
+			<xs:documentation>Defines filter conditions based on flight event code</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Equal">
+				<xs:annotation>
+					<xs:documentation>Flight event code value</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="aip:IATA_CodeType">
+							<xs:attribute name="CodeContext" type="aip:IATA_PADIS_FlightEventCodeContext" use="required">
+								<xs:annotation>
+									<xs:documentation>Indicates the PADIS Code List which the specified code applies to</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="NotExist">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="aip:IATA_CodeType">
+							<xs:attribute name="CodeContext" type="aip:IATA_PADIS_FlightEventCodeContext" use="required">
+								<xs:annotation>
+									<xs:documentation>Indicates the PADIS Code List which the specified code applies to</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="FlightEventCollection">
+		<xs:annotation>
+			<xs:documentation>Collection of FlightEvent records</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FlightEvent" type="aip:FlightEvent" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightEventCondition">
+		<xs:annotation>
+			<xs:documentation>Structure which supports specifying a condition for a flight event</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EventCode" type="aip:FlightEventCodeCondition">
+				<xs:annotation>
+					<xs:documentation>Event code condition</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTime" type="aip:DateTimeCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Event date and time condition</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightEventConditionCollection">
+		<xs:annotation>
+			<xs:documentation>Collection of FlightEventCondition elements</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FlightEventCondition" type="aip:FlightEventCondition" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A single flight event condition</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightHandler">
+		<xs:sequence>
+			<xs:element ref="aip:Company"/>
+			<xs:element name="HandlerType" type="aip:FlightHandlerTypeType">
+				<xs:annotation>
+					<xs:documentation>Handler operational area</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightHandlerCollection">
+		<xs:annotation>
+			<xs:documentation>Collection of FlightEvent records</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FlightHandler" type="aip:FlightHandler" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Flight operation handler</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightID">
+		<xs:annotation>
+			<xs:documentation>Structure containing elements which uniquely identify a flight record</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:sequence>
+				<xs:annotation>
+					<xs:documentation>Specifies values for the primary flight identifier fields i.e. airline code, flight number, STO, flight nature and airport required to either match an existing flight or create a new flight.</xs:documentation>
+				</xs:annotation>
+				<xs:element ref="aip:Airport"/>
+				<xs:element name="Airline" type="aip:Company">
+					<xs:annotation>
+						<xs:documentation>Container for airline information</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="aip:FlightNumber"/>
+				<xs:element ref="aip:FlightSuffix" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Flight number suffix</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="STO" type="aip:STO">
+					<xs:annotation>
+						<xs:documentation>Flight scheduled  date and time including time zone information</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="aip:FlightNature">
+					<xs:annotation>
+						<xs:documentation>Flight leg nature</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="SourceUniqueID" type="aip:SourceUniqueIDType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Unique flight record identifier in the context of the sending system</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="AirportOperationsUniqueID" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:annotation>
+					<xs:documentation>Flight identifier structure intended to match existing flight records, identifying such records by means of a unique record ID issued by the AIE and shared with external systems who can in turn include the same ID in data sent back to the AIE for the corresponding flight record.</xs:documentation>
+				</xs:annotation>
+				<xs:element name="AIPUniqueID" type="aip:AIPUniqueIDType">
+					<xs:annotation>
+						<xs:documentation>Unique flight record identifier in the context of the AIP</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="SourceUniqueID" type="aip:SourceUniqueIDType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Unique flight record identifier in the context of the sending system</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Airline" type="aip:Company" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Cotnainer for airline information</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="aip:FlightNumber" minOccurs="0"/>
+				<xs:element ref="aip:FlightSuffix" minOccurs="0"/>
+				<xs:element name="STO" type="aip:STO" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Flight scheduled  date and time including time zzone information</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="aip:Airport" minOccurs="0"/>
+				<xs:element ref="aip:FlightNature" minOccurs="0"/>
+				<xs:element name="AirportOperationsUniqueID" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:annotation>
+					<xs:documentation>A third option providing a more flexible method for specifying criteria for searching and matching an existing flight record</xs:documentation>
+				</xs:annotation>
+				<xs:element name="FlightUpdateMatchConditions" type="aip:FlightIDConditions">
+					<xs:annotation>
+						<xs:documentation>Provides an alternative method for specifying the criteria whereby an existing flight will be searched for.  Rather than specifying fixed, specific flight identifier values it allows specifying flexible search criteria for finding the flight which the message payload information will be applied to</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="FlightCreateKeyElements" type="aip:FlightCreateKeys" minOccurs="0"/>
+			</xs:sequence>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="FlightIDCondition">
+		<xs:annotation>
+			<xs:documentation>Contains elements allowing criteria to be specified on the data fields which uniquely identify a flight record</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AIPUniqueIDCondition" type="aip:AIPUniqueIdCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Conditions applied to the unique flight record ID in the context of the AIP</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AirlineCondition" type="aip:AirlineCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Condition applied to the flight airline code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FlightNumberCondition" type="aip:FlightNumberCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Condition applied to the flight number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FlightSuffixCondition" type="aip:FlightNumberSuffixCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Condition applied to the flight number suffix</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="STOCondition" type="aip:DateTimeCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Condition applied to the flight STO date and time</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="STODateCondition" type="aip:DateCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Condition applied to the flight STO date component</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FlightNatureCondition" type="aip:FlightNatureCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Condition applied to the flight nature</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AirportCondition" type="aip:AirportCodeCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Condition applied to local airport code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightIDConditions">
+		<xs:sequence>
+			<xs:element name="UniqueFlightMatchCondition" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Container for a set of conditions used for searching flight records.  In the case where a set of multiple flights are matched based on the specified criteria the first match in the set will be accepted to be the correct record and updated, certain data elements provide support for ordering the data set in a manner which will allow the most likely candidate record to appear as the first record in the matched set</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="aip:FlightMatchCondition">
+							<xs:attribute name="Priority" type="xs:integer" use="required">
+								<xs:annotation>
+									<xs:documentation>Assigns a priority to multiple UniqueFlightMatchCondition elements.  These are processed in order of this priority and the first succesfull unique match will be processed.
+A value of 1 has highest priority with priority decreasing as the value increases</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightIrregularity">
+		<xs:annotation>
+			<xs:documentation>Represents a single flight irregularity delay record</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Code">
+				<xs:annotation>
+					<xs:documentation>Reason for delay as per IATA AHM 730</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CustomCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Non-IATA custom delay code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Suffix" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Suffix code</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Duration" type="xs:duration" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Delay Duration</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Cause" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Free-text description of the cause of the delay</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Index" type="xs:integer" use="required">
+			<xs:annotation>
+				<xs:documentation>Provides a mechanism whereby elements in a collection could be uniquely identified and referenced</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="FlightIrregularityDelayCollection">
+		<xs:annotation>
+			<xs:documentation>Collection of FlightIrregularityDelay records</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FlightIrregularityDelay" type="aip:FlightIrregularity" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A flight delay</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightLoad">
+		<xs:annotation>
+			<xs:documentation>Represents a single flight load record</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Code">
+				<xs:annotation>
+					<xs:documentation>Load type code</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="CodeContext" type="aip:IATA_PADIS_LoadCodeContext" use="required">
+								<xs:annotation>
+									<xs:documentation>Specifies the PADIS code set (or custom) context of a flight load code</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Quantity">
+				<xs:annotation>
+					<xs:documentation>Load quantity</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:decimal">
+							<xs:attribute name="UnitOfMeasure" type="aip:WeightUnit"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Index" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>Provides a mechanism whereby elements in a collection could be uniquely identiefied and referenced</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="FlightLoadCollection">
+		<xs:annotation>
+			<xs:documentation>Collection of FlightLoad records</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FlightLoad" type="aip:FlightLoad" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A flight load</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightMatchCondition">
+		<xs:annotation>
+			<xs:documentation>Contains elements allowing criteria to be specified on the data fields which uniquely identify a flight record</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AirlineCondition" type="aip:AirlineCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Condition applied to the flight airline code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FlightNumberCondition" type="aip:FlightNumberCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Condition applied to the flight number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FlightSuffixCondition" type="aip:FlightNumberSuffixCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Condition applied to the flight number suffix</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="STOCondition" type="aip:OrderedDateTimeCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Condition applied to the flight STO date and time</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="STODateCondition" type="aip:OrderedDateCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Condition applied to the flight STO date component</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FlightNatureCondition" type="aip:FlightNatureCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Condition applied to the flight nature</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AirportCondition" type="aip:AirportCodeCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Condition applied to local airport code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PrimaryAircraftCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Condition applied to the primary aircraft operating the flight</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RegistrationCondition" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Equal" type="xs:string"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ResourceConditions" type="aip:ResourceAllocationConditionCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Specifies flight resource allocation information which Flight data will be selected against</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CodeshareCondition" type="aip:CodeshareCondition" minOccurs="0"/>
+			<xs:element name="CustomFieldCondition" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Conditions specified based on custom fields defined in the AMS system</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="aip:OrderedGenericConditionalFieldValue"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="FlightNature" type="aip:FlightNatureType">
+		<xs:annotation>
+			<xs:documentation>Designates flight nature i.e. Arrival or Departure</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="FlightNatureCondition">
+		<xs:annotation>
+			<xs:documentation>Defines filter conditions based on flight nature</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Equal" type="aip:FlightNatureType">
+				<xs:annotation>
+					<xs:documentation>Flight nature</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="FlightNumber" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Flight number</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="FlightNumberCondition">
+		<xs:annotation>
+			<xs:documentation>Structure which supports specifying a condition for a flight number</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Equal" type="aip:AlphaNumeric1_4" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Flight number(s) on which to match</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightNumberSuffixCondition">
+		<xs:annotation>
+			<xs:documentation>Structure which allows specifying a condition for a flight suffix</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Equal" type="aip:FlightNumberSuffixType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Flight suffix(es) on which to match</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightSchedule">
+		<xs:annotation>
+			<xs:documentation>Contains data regarding a flight's scheduling including the period which it is scheduled for and its operation for each day of the week</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ValidityPeriod" type="aip:DateRange">
+				<xs:annotation>
+					<xs:documentation>Period which the schedule entry is valid for</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Monday" type="aip:FlightScheduleDay" nillable="true">
+				<xs:annotation>
+					<xs:documentation>Monday operation detail</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Tuesday" type="aip:FlightScheduleDay" nillable="true">
+				<xs:annotation>
+					<xs:documentation>Tuesday operation detail</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Wednesday" type="aip:FlightScheduleDay" nillable="true">
+				<xs:annotation>
+					<xs:documentation>Wednesday operation detail</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Thursday" type="aip:FlightScheduleDay" nillable="true">
+				<xs:annotation>
+					<xs:documentation>Thursday operation detail</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Friday" type="aip:FlightScheduleDay" nillable="true">
+				<xs:annotation>
+					<xs:documentation>Friday operation detail</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Saturday" type="aip:FlightScheduleDay" nillable="true">
+				<xs:annotation>
+					<xs:documentation>Saturday operation detail</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Sunday" type="aip:FlightScheduleDay" nillable="true">
+				<xs:annotation>
+					<xs:documentation>Sunday operation detail</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightScheduleData">
+		<xs:annotation>
+			<xs:documentation>Contains information pertaining to the Flight category</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FlightID" type="aip:ScheduleFlightID">
+				<xs:annotation>
+					<xs:documentation>Container for data elements which uniquely identify the schedule record (flight)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ScheduleStatus">
+				<xs:annotation>
+					<xs:documentation>Indicates whether the schedule entry is new, updated or cancelled</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="New"/>
+						<xs:enumeration value="Update"/>
+						<xs:enumeration value="Cancel"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ScheduleType" type="aip:FlightScheduleType">
+				<xs:annotation>
+					<xs:documentation>Specifies the schedule operational readiness or type</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FlightSchedule" type="aip:FlightSchedule">
+				<xs:annotation>
+					<xs:documentation>Flight schedule information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ServiceType" type="aip:FlightServiceTypeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates the IATA SSIM type of service of the flight</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PrimaryAircraft" type="aip:Aircraft" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Primary aircraft information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SecondaryAircraft" type="aip:Aircraft" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Secondary aircraft information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TertiaryAircraft" type="aip:Aircraft" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Tertiary aircraft information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Route" type="aip:Route" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Flight routing information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Codeshares" type="aip:CodeshareCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Information of flights which code-share with the flight leg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LinkedFlightID" type="aip:ScheduleFlightID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Identification information of the flight linked to this flight leg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InternationalStatus" type="aip:InternationalStatusType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Specifies whether flight is classified as international, domestic or regional</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Requested" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Schedule creation request date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Approved" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Schedule approval date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CustomFields" type="aip:AIPFlightScheduleDataCustomFields" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightScheduleDay">
+		<xs:annotation>
+			<xs:documentation>Data elements of a scheduled flight relating to a specific day of week which the flight is scheduled for</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="STO" type="xs:time">
+				<xs:annotation>
+					<xs:documentation>Scheduled Time of Operation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LoadFactor" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Load factor percentage</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Pax" type="xs:nonNegativeInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Passenger capacity</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Terminal" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Airport terminal</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Resources" type="aip:ResourceAllocationCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Preliminary resource allocations</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LinkDateOffsetDays" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The number of days difference between the scheduled dates of the linked flights e.g. if the departure is scheduled to depart on the day after the arrival this field  is set to 1.  Zero indicates arrival and departure are scheduled to operate on the same date</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:unsignedInt"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightService">
+		<xs:annotation>
+			<xs:documentation>Represents a single flight service record</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Code">
+				<xs:annotation>
+					<xs:documentation>Service type code</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="CodeContext" type="aip:IATA_PADIS_LoadCodeContext" use="required">
+								<xs:annotation>
+									<xs:documentation>Specifies the PADIS code set (or custom) context of a flight service code</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Quantity" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Service usage quantity</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:decimal">
+							<xs:attribute name="UnitOfMeasure" type="aip:ServicesUsageQuantityUnit"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Timeslot" type="aip:TimeSlot" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Timeslot of service usage</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Index" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>Provides a mechanism whereby elements in a collection could be uniquely identiefied and referenced</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="FlightServiceCollection">
+		<xs:annotation>
+			<xs:documentation>Collection of FlightService records</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FlightService" type="aip:FlightService" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A flight service record</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightServiceTypeCondition">
+		<xs:annotation>
+			<xs:documentation>Structure which supports specifying a condition for flight service type data</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Equal" type="aip:FlightServiceTypeType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Service type code(s) on which to match</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="FlightSuffix">
+		<xs:annotation>
+			<xs:documentation>Flight number suffix</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="aip:FlightNumberSuffixType"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="FloatFieldCondition">
+		<xs:choice>
+			<xs:element name="Equal" type="xs:float"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="GenericConditionalFieldValue">
+		<xs:choice>
+			<xs:element name="String" nillable="true">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Float" nillable="true">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:float"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Date">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:date"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Datetime" nillable="true">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:dateTime"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Double" nillable="true">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:double"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Integer" nillable="true">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:integer"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="GenericField">
+		<xs:choice>
+			<xs:sequence>
+				<xs:element name="Value">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="aip:GenericFieldValue">
+								<xs:attribute name="Type" type="aip:GenericDataFieldType" use="required"/>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Field" type="aip:GenericField" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:element name="Field" type="aip:GenericField" maxOccurs="unbounded"/>
+		</xs:choice>
+		<xs:attribute name="Name" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="GenericFieldValue">
+		<xs:choice>
+			<xs:element name="String" nillable="true">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Integer" nillable="true">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:integer"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Float" nillable="true">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:float"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Date" nillable="true">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:date"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Datetime" nillable="true">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:dateTime"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Double" nillable="true">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:double"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Boolean" nillable="true">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:boolean"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="GenericKeyField">
+		<xs:sequence>
+			<xs:element name="Value">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="aip:GenericFieldValue">
+							<xs:attribute name="Type" type="aip:GenericDataFieldType" use="required"/>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Name" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="GenericRecord">
+		<xs:sequence>
+			<xs:element name="Key" type="aip:GenericRecordKey" minOccurs="0"/>
+			<xs:element name="Deleted" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="Field" type="aip:GenericField" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GenericRecordKey">
+		<xs:sequence>
+			<xs:element name="Field" type="aip:GenericKeyField" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetFlightDataInput" type="aip:GetFlightDataInput">
+		<xs:annotation>
+			<xs:documentation>Message containing the data field conditions for filtering data requested by a consumer</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GetFlightDataInput">
+		<xs:annotation>
+			<xs:documentation>Input message specifying the criteria for querying flight data</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FlightDataCondition" type="aip:FlightDataCondition" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Container element for various criteria condition fields</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetFlightDataResponse" type="aip:GetFlightDataResponse">
+		<xs:annotation>
+			<xs:documentation>Output message returned in response to a request for Flight data</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GetFlightDataResponse">
+		<xs:annotation>
+			<xs:documentation>Output message containing the result of a flight data query</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RequestReferenceID">
+				<xs:annotation>
+					<xs:documentation>Unique ID assigned to the request</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="\S+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ResponseCollection" type="aip:ResponseCollectionType">
+				<xs:annotation>
+					<xs:documentation>Collection of response messages describing the processing of the various input fields provided in the request from the calling system</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Output" type="aip:FlightDataCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Data output generated in response to the request</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetReferenceDataAircraftInput" type="aip:GetReferenceDataAircraftInput">
+		<xs:annotation>
+			<xs:documentation>Message specifiying criteria for requesting aircraft master data</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GetReferenceDataAircraftInput">
+		<xs:annotation>
+			<xs:documentation>Message specifiying criteria for requesting aircraft master data</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AircraftDataCondition" type="aip:AircraftDataCondition"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetReferenceDataAircraftResponse" type="aip:GetReferenceDataAircraftResponse">
+		<xs:annotation>
+			<xs:documentation>Message generated in response to the processing of a received GetReferenceDataAircraftInput message</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GetReferenceDataAircraftResponse">
+		<xs:annotation>
+			<xs:documentation>Message generated in response to the processing of a received GetReferenceDataAircraftInput message</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RequestReferenceID">
+				<xs:annotation>
+					<xs:documentation>Unique ID assigned to the request</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="\S+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ResponseCollection" type="aip:ResponseCollectionType">
+				<xs:annotation>
+					<xs:documentation>Collection of response messages describing the processing of the various input fields provided in the request from the calling system</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Output" type="aip:AircraftCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Data output generated in response to the request</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetReferenceDataAircraftTypeInput" type="aip:GetReferenceDataAircraftTypeInput">
+		<xs:annotation>
+			<xs:documentation>Message specifiying criteria for requesting aircaft type master data</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GetReferenceDataAircraftTypeInput">
+		<xs:annotation>
+			<xs:documentation>Message specifiying criteria for requesting aircaft type master data</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AircraftTypeDataCondition" type="aip:AircraftTypeDataCondition"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetReferenceDataAircraftTypeResponse" type="aip:GetReferenceDataAircraftTypeResponse">
+		<xs:annotation>
+			<xs:documentation>Message generated in response to the processing of a received GetReferenceDataAircraftTypeInput message</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GetReferenceDataAircraftTypeResponse">
+		<xs:annotation>
+			<xs:documentation>Message generated in response to the processing of a received GetReferenceDataAircraftTypeInput message</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RequestReferenceID">
+				<xs:annotation>
+					<xs:documentation>Unique ID assigned to the request</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="\S+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ResponseCollection" type="aip:ResponseCollectionType">
+				<xs:annotation>
+					<xs:documentation>Collection of response messages describing the processing of the various input fields provided in the request from the calling system</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Output" type="aip:AircraftTypeCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Data output generated in response to the request</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetReferenceDataAirlineInput" type="aip:GetReferenceDataAirlineInput">
+		<xs:annotation>
+			<xs:documentation>Message specifiying criteria for requesting airline master data</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GetReferenceDataAirlineInput">
+		<xs:annotation>
+			<xs:documentation>Message specifiying criteria for requesting airline master data</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AirlineDataCondition" type="aip:AirlineCondition"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetReferenceDataAirlineResponse" type="aip:GetReferenceDataAirlineResponse">
+		<xs:annotation>
+			<xs:documentation>Message generated in response to the processing of a received GetReferenceDataAirlineInput message</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GetReferenceDataAirlineResponse">
+		<xs:annotation>
+			<xs:documentation>Message generated in response to the processing of a received GetReferenceDataAirlineInput message</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RequestReferenceID">
+				<xs:annotation>
+					<xs:documentation>Unique ID assigned to the request</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="\S+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ResponseCollection" type="aip:ResponseCollectionType">
+				<xs:annotation>
+					<xs:documentation>Collection of response messages describing the processing of the various input fields provided in the request from the calling system</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Output" type="aip:AirlineCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Data output generated in response to the request</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetReferenceDataAirportInput" type="aip:GetReferenceDataAirportInput">
+		<xs:annotation>
+			<xs:documentation>Message specifiying criteria for requesting airport master data</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GetReferenceDataAirportInput">
+		<xs:annotation>
+			<xs:documentation>Message specifiying criteria for requesting airport master data</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AirportDataCondition" type="aip:AirportCodeCondition"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetReferenceDataAirportResponse" type="aip:GetReferenceDataAirportResponse">
+		<xs:annotation>
+			<xs:documentation>Message generated in response to the processing of a received GetReferenceDataAirportInput message</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GetReferenceDataAirportResponse">
+		<xs:annotation>
+			<xs:documentation>Message generated in response to the processing of a received GetReferenceDataAirportInput message</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RequestReferenceID">
+				<xs:annotation>
+					<xs:documentation>Unique ID assigned to the request</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="\S+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ResponseCollection" type="aip:ResponseCollectionType">
+				<xs:annotation>
+					<xs:documentation>Collection of response messages describing the processing of the various input fields provided in the request from the calling system</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Output" type="aip:AirportCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Data output generated in response to the request</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IntegerFieldCondition">
+		<xs:choice>
+			<xs:element name="Equal" type="xs:integer"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="InternationalStatusCondition">
+		<xs:annotation>
+			<xs:documentation>Structure which supports specifying conditions on flight international status</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Equal" type="aip:InternationalStatusType">
+				<xs:annotation>
+					<xs:documentation>International status on which to match</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="MessageID" type="xs:unsignedLong">
+		<xs:annotation>
+			<xs:documentation>Unique message ID assigned by the source system generating the message</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MessageMetadata" type="aip:MessageMetadata"/>
+	<xs:complexType name="MessageMetadata">
+		<xs:annotation>
+			<xs:documentation>Structure containing message metadata</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element ref="aip:Source"/>
+			<xs:element ref="aip:Timestamp"/>
+			<xs:element ref="aip:MessageType"/>
+			<xs:element ref="aip:MessageID" minOccurs="0"/>
+			<xs:element ref="aip:ProcessingResponseRequired" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Optional boolean value applicable only in web service-based synchronous communication scenarios to indicate whether the caller requires full detail of the data processing to be returned in the response message issued to the caller.
+If set to False a simple response will be returned with no detail of the data processing outcome</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="aip:ExtensionFields" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Provides support for additional metadata elements to be included as needed</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UUID" type="aip:AIPUniqueIDType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Unique message ID generated by the integration platform and assigned to the message when the data first enters the integration environment</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:all>
+	</xs:complexType>
+	<xs:element name="MessageType" type="aip:MessageType">
+		<xs:annotation>
+			<xs:documentation>Reflects the message type contained in the Envelope Body.  The value will correspond with the name of one of the message types e.g. PublishFlightDataInput</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="MetaData">
+		<xs:annotation>
+			<xs:documentation>Message metadata</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Source" nillable="false">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="\S+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Timestamp" type="xs:dateTime" nillable="false"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OpenEndedTimeSlot">
+		<xs:annotation>
+			<xs:documentation>Structure representing a time window containing a start time and optional end time</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Start" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Slot start date and time</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Stop" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Slot end date and time</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OperationalStatusType">
+		<xs:annotation>
+			<xs:documentation>Container element for flight operational status information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Code">
+				<xs:annotation>
+					<xs:documentation>Reflects the operational status code of the flight leg, of use to airlines and operational staff.
+Populated with values from the PADIS Codes List elements 1245 and 2005 or alternatively may be populated with AMS-internal code values</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="CodeContext" type="aip:IATA_PADIS_StatusCodeContext"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Operational status description</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="Language" type="xs:language" use="required"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="OperationData" type="aip:RequestCorrelation"/>
+	<xs:attributeGroup name="OrderConditionsAttributes">
+		<xs:attribute name="Order" type="aip:SortOrder" use="optional"/>
+		<xs:attribute name="OrderPriority" type="xs:unsignedInt" use="optional"/>
+		<xs:attribute name="NullValueOrdering" type="aip:NullValueOrdering" use="optional" default="NullsFirst"/>
+	</xs:attributeGroup>
+	<xs:complexType name="OrderedDateCondition">
+		<xs:annotation>
+			<xs:documentation>Structure which allows specifying a date-time condition</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0">
+			<xs:element name="Equal" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Scheduled date on which to match</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Between" type="aip:DateRange">
+				<xs:annotation>
+					<xs:documentation>Range of flight scheduled date values to match on</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GreaterThan" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Lower limit scheduled date (inclusive)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LessThan" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Upper limit scheduled date (inclusive)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="aip:OrderConditionsAttributes"/>
+	</xs:complexType>
+	<xs:complexType name="OrderedDateTimeCondition">
+		<xs:annotation>
+			<xs:documentation>Structure which allows specifying a date-time condition as well as ordering conditions for the result</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0">
+			<xs:element name="Equal" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Scheduled date and time on which to match</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Between" type="aip:DateTimeRange">
+				<xs:annotation>
+					<xs:documentation>Range of flight scheduled date and time values to match on</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GreaterThan" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Lower limit scheduled date and time (inclusive)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LessThan" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Upper limit scheduled date and time (inclusive)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="aip:OrderConditionsAttributes"/>
+	</xs:complexType>
+	<xs:complexType name="OrderedGenericConditionalFieldValue">
+		<xs:choice minOccurs="0">
+			<xs:element name="String" type="aip:StringFieldCondition" nillable="true"/>
+			<xs:element name="Float" type="aip:FloatFieldCondition" nillable="true"/>
+			<xs:element name="Date" type="aip:DateFieldCondition"/>
+			<xs:element name="Datetime" type="aip:DatetimeFieldCondition" nillable="true"/>
+			<xs:element name="Double" type="aip:DoubleFieldCondition" nillable="true"/>
+			<xs:element name="Integer" type="aip:IntegerFieldCondition" nillable="true"/>
+		</xs:choice>
+		<xs:attribute name="FieldName" type="xs:string" use="required"/>
+		<xs:attribute name="TableName" type="xs:string"/>
+		<xs:attributeGroup ref="aip:OrderConditionsAttributes"/>
+	</xs:complexType>
+	<xs:complexType name="PartialDateTime">
+		<xs:sequence>
+			<xs:element name="DayOfMonth" nillable="false" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:positiveInteger">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Time" type="xs:time"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PassengerService">
+		<xs:annotation>
+			<xs:documentation>Represents a single passenger service record</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Code" type="aip:SSROSICodesType">
+				<xs:annotation>
+					<xs:documentation>Service type code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Quantity" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Service quantity</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Index" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>Provides a mechanism whereby elements in a collection could be uniquely identiefied and referenced</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="FareClass" type="aip:FareClass">
+			<xs:annotation>
+				<xs:documentation>IATA fare close code</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PassengerServiceCollection">
+		<xs:sequence>
+			<xs:element name="PassengerService" type="aip:PassengerService" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonName">
+		<xs:sequence>
+			<xs:element name="Title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Person title e.g. Mr. Miss. etc</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirstName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Person first name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MiddleName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Person middle name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Person last name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ProcessingResponseRequired" type="aip:ProcessingResponseRequired">
+		<xs:annotation>
+			<xs:documentation>Optional boolean value applicable only in web service-based asynchronous communication scenarios to indicate whether the caller requires full detail of the data processing to be returned in the response message issued to the caller.
+If set to False a simple response will be returned with no detail of the data processing outcome</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PublicRemarkType">
+		<xs:annotation>
+			<xs:documentation>Container element for flight public remark information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Code">
+				<xs:annotation>
+					<xs:documentation>Flight leg status code appropriate for public display.
+Populated with values from the PADIS Codes List elements 1245 and 2005, alternatively could be populated with the AMS-internal remark code</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="CodeContext" type="aip:IATA_PADIS_StatusCodeContext" use="required">
+								<xs:annotation>
+									<xs:documentation>Specifies whether the specified code is from PADIS codes list element 1245 or 2005, alternatively if set to 0000 indicates the code being an AMS-internal code</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Public remark description</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="Language" type="xs:language"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PublishDataResponse">
+		<xs:annotation>
+			<xs:documentation>Generic response type utilized in most/all data publication message types</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ResponseCollection" type="aip:ResponseCollectionType">
+				<xs:annotation>
+					<xs:documentation>Collection of response records providing detail of the outcome of processing performed on input data published to the integration platform</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PublishEquipmentStatusInput" type="aip:PublishEquipmentStatusInput">
+		<xs:annotation>
+			<xs:documentation>Message containing information on the availability of one or more pieces of airport operational equipment</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PublishEquipmentStatusInput">
+		<xs:annotation>
+			<xs:documentation>Container for information on the availability of one or more pieces of airport operational equipment</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EquipmentStatus" type="aip:EquipmentAvailabilityStatus" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PublishFlightDataInput" type="aip:PublishFlightDataInput">
+		<xs:annotation>
+			<xs:documentation>Message containing data from the Flight category generated by either the integration platform (distributing update information to integrated systems) or by integrated systems publishing such data to the integration platform.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PublishFlightDataInput">
+		<xs:annotation>
+			<xs:documentation>Message containing data from the Flight category generated by either the integration platform (distributing update information to integrated systems) or by integrated systems publishing such data to the integration platform.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FlightData" type="aip:FlightData" maxOccurs="unbounded">
+				<xs:unique name="UniqueFlightEventIndex">
+					<xs:selector xpath="aip:FlightEvents/aip:FlightEvent"/>
+					<xs:field xpath="@Index"/>
+				</xs:unique>
+				<xs:unique name="UniqueFlightLoadIndex">
+					<xs:selector xpath="aip:FlightLoads/aip:FlightLoad"/>
+					<xs:field xpath="@Index"/>
+				</xs:unique>
+				<xs:unique name="UniqueResourceAssignmentIndex">
+					<xs:selector xpath="aip:ResourceAllocations/aip:ResourceAllocation"/>
+					<xs:field xpath="@Index"/>
+				</xs:unique>
+				<xs:unique name="UniqueCodeshareIndex">
+					<xs:selector xpath="aip:Codeshares/aip:Codeshare"/>
+					<xs:field xpath="@Index"/>
+				</xs:unique>
+				<xs:unique name="UniqueIrregularityDelaysIndex">
+					<xs:selector xpath="aip:FlightIrregularityDelays/aip:FlightIrregularityDelay"/>
+					<xs:field xpath="@Index"/>
+				</xs:unique>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PublishFlightDataResponse" type="aip:PublishDataResponse">
+		<xs:annotation>
+			<xs:documentation>Output message generated in response to call to publish data to the Flight category.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="PublishFlightScheduleDataInput" type="aip:PublishFlightScheduleDataInput">
+		<xs:annotation>
+			<xs:documentation>Input message for publishing flight schedule information to the AIP</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PublishFlightScheduleDataInput">
+		<xs:annotation>
+			<xs:documentation>Input message for publishing flight schedule information to the AIP</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FlightScheduleData" type="aip:FlightScheduleData" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A flight schedule record</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PublishFlightScheduleDataResponse" type="aip:PublishDataResponse">
+		<xs:annotation>
+			<xs:documentation>Output message generated in response to a call to publish flight schedule data to the intergation platform</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="PublishGenericDataInput" type="aip:PublishGenericDataInput">
+		<xs:annotation>
+			<xs:documentation>Method supporting publication of data not supported by the other AIP methods, typically non flight related data</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PublishGenericDataInput">
+		<xs:annotation>
+			<xs:documentation>Message containing generic, non flight related data.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GenericData" type="aip:GenericRecord" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PublishGenericDataResponse" type="aip:PublishDataResponse">
+		<xs:annotation>
+			<xs:documentation>Output message generated in response to call to publish non flight related data.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="PublishReferenceDataAircraftInput" type="aip:PublishReferenceDataAircraftInput">
+		<xs:annotation>
+			<xs:documentation>Message containing aircraft master data generated to distribute the aircraft data to subscribed systems</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PublishReferenceDataAircraftInput">
+		<xs:annotation>
+			<xs:documentation>Message containing aircraft master data generated to distribute the aircraft data to subscribed systems</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ReferenceDataAircraft" type="aip:ReferenceDataAircraft" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PublishReferenceDataAircraftResponse" type="aip:PublishDataResponse">
+		<xs:annotation>
+			<xs:documentation>Message generated in response to receipt of a PublishReferenceDataAircraftInput message, reflects the outcome of the processing of the data contained in the input message</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="PublishReferenceDataAircraftTypeInput" type="aip:PublishReferenceDataAircraftTypeInput">
+		<xs:annotation>
+			<xs:documentation>Message containing aircraft type master data generated to distribute the aircraft type data to subscribed systems</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PublishReferenceDataAircraftTypeInput">
+		<xs:annotation>
+			<xs:documentation>Message containing aircraft type master data generated to distribute the aircraft type data to subscribed systems</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ReferenceDataAircraftType" type="aip:ReferenceDataAircraftType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PublishReferenceDataAircraftTypeResponse" type="aip:PublishDataResponse">
+		<xs:annotation>
+			<xs:documentation>Message generated in response to receipt of a PublishReferenceDataAircraftTypeInput message, reflects the outcome of the processing of the data contained in the input message</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="PublishReferenceDataAirlineInput" type="aip:PublishReferenceDataAirlineInput">
+		<xs:annotation>
+			<xs:documentation>Message containing airline master data generated to distribute the airline data to subscribed systems</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PublishReferenceDataAirlineInput">
+		<xs:annotation>
+			<xs:documentation>Message containing airline master data generated to distribute the airline data to subscribed systems</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ReferenceDataAirline" type="aip:ReferenceDataAirline" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PublishReferenceDataAirlineResponse" type="aip:PublishDataResponse">
+		<xs:annotation>
+			<xs:documentation>Message generated in response to receipt of a PublishReferenceDataAirlineInput message, reflects the outcome of the processing of the data contained in the input message</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="PublishReferenceDataAirportInput" type="aip:PublishReferenceDataAirportInput">
+		<xs:annotation>
+			<xs:documentation>Message containing airport master data generated to distribute the airport data to subscribed systems</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PublishReferenceDataAirportInput">
+		<xs:annotation>
+			<xs:documentation>Message containing airport master data generated to distribute the airport data to subscribed systems</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ReferenceDataAirport" type="aip:ReferenceDataAirport" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PublishReferenceDataAirportResponse" type="aip:PublishDataResponse">
+		<xs:annotation>
+			<xs:documentation>Message generated in response to receipt of a PublishReferenceDataAirportInput message, reflects the outcome of the processing of the data contained in the input message</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="PublishSITATexDataInput" type="aip:PublishSITATexDataInput">
+		<xs:annotation>
+			<xs:documentation>Input message for publishing raw SITATex Type B message content to the integration platform</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PublishSITATexDataInput">
+		<xs:annotation>
+			<xs:documentation>Input message for publishing raw SITATex Type B message content to the integration platform</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SITATexData" type="aip:SITATexData" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A SITATex message</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PublishSITATexDataResponse" type="aip:PublishDataResponse">
+		<xs:annotation>
+			<xs:documentation>Message generated in response to the processing of a received PublishSITATexDataInput message</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RecordMetadata">
+		<xs:annotation>
+			<xs:documentation>Contains metadata describing a specific data record</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ElementUpdateDetailCollection" type="aip:ElementUpdateDetailCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Collection of detail describing the elements that have been changed</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReferenceDataAircraft">
+		<xs:annotation>
+			<xs:documentation>Structure containing reference data relating to aircraft</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RecordMetadata" type="aip:RecordMetadata" minOccurs="0"/>
+			<xs:element name="Registration" type="xs:string"/>
+			<xs:element name="Type" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="aip:ReferenceDataAircraftType"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SubType" minOccurs="0"/>
+			<xs:element name="AircraftConfiguration" type="aip:AircraftConfiguration" minOccurs="0"/>
+			<xs:element name="AIPUniqueID" type="aip:AIPUniqueIDType" minOccurs="0"/>
+			<xs:element name="Deleted" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="CustomFields" type="aip:AIPBaseDataCustomFields" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReferenceDataAircraftType">
+		<xs:annotation>
+			<xs:documentation>Structure containing reference data relating to aircraft types</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RecordMetadata" type="aip:RecordMetadata" minOccurs="0"/>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="IATA" type="aip:AircraftTypeIATACodeType"/>
+					<xs:element name="ICAO" type="aip:AircraftTypeICAOCodeType" minOccurs="0"/>
+				</xs:sequence>
+				<xs:element name="ICAO" type="aip:AircraftTypeICAOCodeType"/>
+			</xs:choice>
+			<xs:element name="Name" type="xs:string" minOccurs="0"/>
+			<xs:element name="AircraftConfiguration" type="aip:AircraftTypeConfiguration" minOccurs="0"/>
+			<xs:element name="AIPUniqueID" type="aip:AIPUniqueIDType" minOccurs="0"/>
+			<xs:element name="Deleted" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="CustomFields" type="aip:AIPBaseDataCustomFields" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReferenceDataAirline">
+		<xs:annotation>
+			<xs:documentation>Structure containing reference data relating to airlines</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RecordMetadata" type="aip:RecordMetadata" minOccurs="0"/>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="IATA" type="aip:AirlineCodeType"/>
+					<xs:element name="ICAO" type="aip:AirlineCodeType" minOccurs="0"/>
+				</xs:sequence>
+				<xs:element name="ICAO" type="aip:AirlineCodeType"/>
+			</xs:choice>
+			<xs:element name="Name" type="xs:string" minOccurs="0"/>
+			<xs:element name="AIPUniqueID" type="aip:AIPUniqueIDType" minOccurs="0"/>
+			<xs:element name="Deleted" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="HomeCountry" type="aip:Country" minOccurs="0"/>
+			<xs:element name="ICAOCallsign" type="xs:string" minOccurs="0"/>
+			<xs:element name="ContactInformation" type="aip:ContactDetailCollection" minOccurs="0"/>
+			<xs:element name="BlacklistIndicator" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="CreditStatus" type="xs:string" minOccurs="0"/>
+			<xs:element name="BagTagIssuerCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="CustomFields" type="aip:AIPBaseDataCustomFields" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReferenceDataAirport">
+		<xs:annotation>
+			<xs:documentation>Structure containing reference data relating to airports</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RecordMetadata" type="aip:RecordMetadata" minOccurs="0"/>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="IATA" type="aip:AirportIATACodeType"/>
+					<xs:element name="ICAO" type="aip:AirportICAOCodeType" minOccurs="0"/>
+				</xs:sequence>
+				<xs:element name="ICAO" type="aip:AirportICAOCodeType"/>
+			</xs:choice>
+			<xs:element name="Name" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="Language" type="xs:language"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Country" type="aip:Country" minOccurs="0"/>
+			<xs:element name="AIPUniqueID" type="aip:AIPUniqueIDType" minOccurs="0"/>
+			<xs:element name="Deleted" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="Language" type="xs:language"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="City" type="xs:string" minOccurs="0"/>
+			<xs:element name="State" type="xs:string" minOccurs="0"/>
+			<xs:element name="CustomFields" type="aip:AIPBaseDataCustomFields" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RepeatTimeSlot">
+		<xs:sequence>
+			<xs:element name="StartDate" type="xs:dateTime"/>
+			<xs:element name="EndDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="DaysOfWeek" type="aip:DaysOfWeekList"/>
+			<xs:element name="StartTime" type="xs:time"/>
+			<xs:choice>
+				<xs:element name="EndTime" type="xs:time"/>
+				<xs:element name="Duration" type="xs:duration"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RequestCorrelation">
+		<xs:annotation>
+			<xs:documentation>Reflects the correlation information received as input to a request.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OperationName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Identifies an operation context under which the request will be processed.  Operations have filtering and transformation rules associated in the AIP according to which the returned data will be processed for return to the requestor</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CorrelationID" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Correlation ID value provided by the calling requestor</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Resource">
+		<xs:annotation>
+			<xs:documentation>Container for airport resource information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ResourceType" type="aip:ResourceTypeType">
+				<xs:annotation>
+					<xs:documentation>Resource type code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Code" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Resource code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Identifier" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Alphanumeric value which enables the identification of a specific resource</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Location" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Code of airport area where resource is located.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Qualifier" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Operation type of the resource populated according to the relevant PADIS codes list category as per the specified ResourceType.
+
+May be populated for resource types BAY, BAGGAGECLAIM and COUNTER.
+
+For BAY; Populated with one of the values 'Gate' or 'Remote'
+
+For BAGGAGECLAIM: Populated with values from the IATA PADIS codes list BAG
+
+For COUNTER: Populated with values from the IATA PADIS codes list CHK</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ResourceAllocation">
+		<xs:annotation>
+			<xs:documentation>Represents a single flight resource allocation records</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Resource" type="aip:Resource"/>
+			<xs:element name="TimeSlot" type="aip:TimeSlot" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Resource allocation time slot</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Index" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>Provides a mechanism whereby elements in a collection could be uniquely identified and referenced.  Used in message metadata when referencing collection elements affected by a change</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Class" type="aip:PassengerServiceClass">
+			<xs:annotation>
+				<xs:documentation>Passenger service class of the allocated resource as per PADIS codes list category 9873</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Category" type="aip:FlightTerminationCategoryType">
+			<xs:annotation>
+				<xs:documentation>Indicator of the flight termination status i.e. terminating, transfer etc.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ResourceAllocationCollection">
+		<xs:annotation>
+			<xs:documentation>Collection of ResourceAllocation records</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ResourceAllocation" type="aip:ResourceAllocation" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A resource allocation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResourceAllocationCondition">
+		<xs:annotation>
+			<xs:documentation>Structure which supports specifying a condition for a flight resource assignment</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Code" type="aip:CodeFieldCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Resource code condition</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ResourceType" type="aip:ResourceTypeCodeFieldCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Resource type code condition</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TimeSlot" type="aip:TimeSlotCondition" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResourceAllocationConditionCollection">
+		<xs:annotation>
+			<xs:documentation>Collection of ResourceAllocationCondition elements</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ResourceAllocationCondition" type="aip:ResourceAllocationCondition" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Resource allocation condition</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResourceTypeCodeFieldCondition">
+		<xs:annotation>
+			<xs:documentation>Defines filter conditions based on aip:ResourceTypeType based field</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Equal" type="aip:ResourceTypeType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Code(s) on which to match</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResponseCollectionType">
+		<xs:annotation>
+			<xs:documentation>Collection of response records (DataPublishResponseType) reflecting the complete outcome of the processing of a message sent to the AIP (either publish or request)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Response" type="aip:DataPublishResponseType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Container element for elements describing the outcome of the processing of a specific element contained in  a message submitted to the AIP</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Route">
+		<xs:annotation>
+			<xs:documentation>Flight route information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Origin" type="aip:Airport">
+				<xs:annotation>
+					<xs:documentation>Originating airport code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Destination" type="aip:Airport">
+				<xs:annotation>
+					<xs:documentation>Final destination airport code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StopOver" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Airport along the route of the flight landed at prior to the final destination airport</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="aip:Airport">
+							<xs:attribute name="Sequence" type="xs:positiveInteger" use="required">
+								<xs:annotation>
+									<xs:documentation>Reflects the order of the stop-over with 1 being the first stop after departing the origin, 2 the second stop etc.</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RouteCondition">
+		<xs:annotation>
+			<xs:documentation>Structure which supports specifying a condition for a flight route</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Origin" type="aip:AirportCodeCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Origin airport condition</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Destination" type="aip:AirportCodeCondition" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Schedule">
+		<xs:choice>
+			<xs:element name="Timeslot" type="aip:OpenEndedTimeSlot"/>
+			<xs:element name="Schedule" type="aip:RepeatTimeSlot"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ScheduleFlightID">
+		<xs:annotation>
+			<xs:documentation>Unique identifier of a schedule record for a single flight</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Airline" type="aip:Company">
+				<xs:annotation>
+					<xs:documentation>Container for airline information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="aip:FlightNumber"/>
+			<xs:element ref="aip:FlightSuffix" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Flight number suffix</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="aip:FlightNature">
+				<xs:annotation>
+					<xs:documentation>Flight leg nature</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="aip:Airport"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SITATexData">
+		<xs:annotation>
+			<xs:documentation>Container for SITATex data</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SITATexMessageType" type="aip:SITATexMessageTypeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>SITATex MessageType Code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Payload" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Raw message data payload</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Source" nillable="false">
+		<xs:annotation>
+			<xs:documentation>Data source identifier.  A unique code identifying the system which generates the message.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\S+"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:complexType name="STO">
+		<xs:annotation>
+			<xs:documentation>Flight scheduled date and time</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Date" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Scheduled date, including timezone information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Time" type="xs:time" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Scheduled time</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="StringFieldCondition">
+		<xs:choice>
+			<xs:element name="Equal" type="xs:string"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:element name="SubscribeInput" type="aip:SubscribeInput">
+		<xs:annotation>
+			<xs:documentation>External system subscription request input message.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="SubscribeInput">
+		<xs:annotation>
+			<xs:documentation>Contains the details of a subscription request</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Consumer" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Unique system ID code for the subscribing system</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Category" type="aip:DataCategoryType">
+				<xs:annotation>
+					<xs:documentation>Data category being subscribed to</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Type" type="aip:SubscriptionType">
+				<xs:annotation>
+					<xs:documentation>Type of subscription indicating a requirement for either real-time data, scheduled batch data or a combination of both</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BatchScheduling" type="aip:BatchSchedulingDetail" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Detail regarding the scheduling of batch data load</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Transport" type="aip:SubscriptionTransport">
+				<xs:annotation>
+					<xs:documentation>Detail of the transport mechanism whereby the data will be distributed to the requesting system</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Commencement" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Date and time at which the subscription will come into effect</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Cessation" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date and time at which the subscription will cease</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Transform" type="xs:anyType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>XML transform content to be applied to the retrieved data prior to it being delivered to the requesting system</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SubscribeResponse" type="aip:SubscribeResponse">
+		<xs:annotation>
+			<xs:documentation>Integration platform response to a subscription request.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="SubscribeResponse">
+		<xs:annotation>
+			<xs:documentation>Contains the details of the outcome of a subscription request</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SubscriptionID" type="xs:string" nillable="true">
+				<xs:annotation>
+					<xs:documentation>Unique ID assigned to the subscription</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ResponseCollection" type="aip:ResponseCollectionType">
+				<xs:annotation>
+					<xs:documentation>Collection of response records providing detail of the outcome of processing performed on the subscription request</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SubscriptionTransport">
+		<xs:annotation>
+			<xs:documentation>Contains information of a particular transport mechanism i.e. Websphere MQ or web service</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="WMQTransport" type="aip:WMQTransport">
+				<xs:annotation>
+					<xs:documentation>Websphere MQ Transport detail</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WSTransport" type="aip:WSTransport">
+				<xs:annotation>
+					<xs:documentation>Web services transport detail</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="TerminalCondition">
+		<xs:annotation>
+			<xs:documentation>Structure which supports specifying a condition for a flight terminal</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Equal" type="xs:string" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Airport terminal code(s) on which to match</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TimeSlot">
+		<xs:annotation>
+			<xs:documentation>Structure representing a time window containing a start time and end time</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Start" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Slot start date and time</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Stop" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Slot end date and time</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TimeSlotCondition">
+		<xs:choice>
+			<xs:element name="Contains" type="xs:dateTime"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:element name="Timestamp" type="xs:dateTime" nillable="false">
+		<xs:annotation>
+			<xs:documentation>Date and time the message is sent.  Example 2013-03-08T16:33:05+02:00</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="Transfer">
+		<xs:annotation>
+			<xs:documentation>Code share flight identifier</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Airline" type="aip:Company">
+				<xs:annotation>
+					<xs:documentation>Container for airline information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="aip:FlightNumber">
+				<xs:annotation>
+					<xs:documentation>Flight number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="aip:FlightSuffix" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Flight number suffix</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="STO" type="aip:STO">
+				<xs:annotation>
+					<xs:documentation>Flight scheduled  date and time including time zone information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Loads" type="aip:TransferFlightLoadCollection" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Index" type="xs:integer" use="required">
+			<xs:annotation>
+				<xs:documentation>Provides a mechanism whereby elements in a collection could be uniquely identiefied and referenced</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TransferCollection">
+		<xs:annotation>
+			<xs:documentation>Collection of transfer flight</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Transfer" type="aip:Transfer" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Code share flight</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TransferFlightLoad">
+		<xs:annotation>
+			<xs:documentation>Represents a single flight load record</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Code">
+				<xs:annotation>
+					<xs:documentation>Load type code</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="CodeContext" type="aip:IATA_PADIS_LoadCodeContext" use="required">
+								<xs:annotation>
+									<xs:documentation>Specifies the PADIS code set (or custom) context of a flight load code</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Quantity">
+				<xs:annotation>
+					<xs:documentation>Load quantity</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:decimal">
+							<xs:attribute name="UnitOfMeasure" type="aip:WeightUnit"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Index" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>Provides a mechanism whereby elements in a collection could be uniquely identiefied and referenced</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="FareClass" type="aip:FareClass">
+			<xs:annotation>
+				<xs:documentation>IATA fare class code</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TransferFlightLoadCollection">
+		<xs:annotation>
+			<xs:documentation>Collection of FlightLoad records</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FlightLoad" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A flight load</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="aip:TransferFlightLoad"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Turnaround">
+		<xs:sequence>
+			<xs:element name="Minimum" type="xs:integer"/>
+			<xs:element name="Maximum" type="xs:integer"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="UnsubscribeInput" type="aip:UnsubscribeInput">
+		<xs:annotation>
+			<xs:documentation>Input message containing an external system's request to unsubscribe from the integration platform.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="UnsubscribeInput">
+		<xs:annotation>
+			<xs:documentation>Contains the details of a request to cancel a subscription</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Consumer" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Unique system ID code for the subscribing system</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="SubscriptionID" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Unique ID assigned to the subscription when it was first registered with the AIP</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:sequence>
+					<xs:element name="Category" type="aip:DataCategoryType">
+						<xs:annotation>
+							<xs:documentation>Data category which had previously been subscribed to</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Type" type="aip:SubscriptionType">
+						<xs:annotation>
+							<xs:documentation>Type of subscription i.e. real-time data, scheduled batch data or a combination of both</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Transport" type="aip:SubscriptionTransport">
+						<xs:annotation>
+							<xs:documentation>Detail of the transport mechanism applied to the subscription</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="UnsubscribeResponse" type="aip:UnsubscribeResponse">
+		<xs:annotation>
+			<xs:documentation>Integration platform response to a request to unsubscribe.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="UnsubscribeResponse">
+		<xs:annotation>
+			<xs:documentation>Contains the details of the outcome of a request to cancel a subscription</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SubscriptionId" type="xs:string" nillable="true">
+				<xs:annotation>
+					<xs:documentation>Unique ID of the subscription involved in the unsubscription</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ResponseCollection" type="aip:ResponseCollectionType">
+				<xs:annotation>
+					<xs:documentation>Collection of response records providing detail of the outcome of processing performed on the subscription request</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="WMQTransport">
+		<xs:annotation>
+			<xs:documentation>Contains information describing the properties of a Websphere MQ based transport</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="QueueManager" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Queue Manager name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Queue" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Queue name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Channel" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Channel name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Port" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>Port number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="WSTransport">
+		<xs:annotation>
+			<xs:documentation>Contains information describing the properties of a web services based transport</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="URI" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Web service URI</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:aip="http://www.sita.aero/aip/XMLSchema" targetNamespace="http://www.sita.aero/aip/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xs:include schemaLocation="AIPComplexTypes.xsd"/>
+	<xs:element name="AODBFields">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="KeyValue" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="aip:GenericFieldValue">
+								<xs:attribute name="Key" type="xs:string" use="required"/>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

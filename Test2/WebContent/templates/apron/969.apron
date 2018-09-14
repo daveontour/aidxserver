@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IATA_AIDX_FlightLegNotifRQ xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ba="http://baplc.com/extensionSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:thread="java:java.lang.Thread" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns="http://www.iata.org/IATA/2007/00" AltLangID="en-us" PrimaryLangID="en-us" Target="Test" Version="15.1" TimeStamp="2015-06-05T02:31:02.558Z" TransactionIdentifier="VFA:">
+	<Originator CompanyShortName="BA"/>
+	<DeliveringSystem CompanyShortName="BA"/>
+	<FlightLeg>
+		<LegIdentifier>
+			<Airline CodeContext="3">BA</Airline>
+			<FlightNumber>969</FlightNumber>
+			<DepartureAirport CodeContext="3">HAM</DepartureAirport>
+			<ArrivalAirport CodeContext="3">LHR</ArrivalAirport>
+			<OriginDate>2015-06-05</OriginDate>
+			<RepeatNumber>1</RepeatNumber>
+		</LegIdentifier>
+		<LegData>
+			<AirportResources Usage="Planned">
+				<Resource DepartureOrArrival="Departure">
+					<AircraftParkingPosition Qualifier="normal"/>
+					<PassengerGate RepeatIndex="1">B32</PassengerGate>
+				</Resource>
+				<Resource DepartureOrArrival="Arrival">
+					<AircraftParkingPosition Qualifier="normal">509</AircraftParkingPosition>
+				</Resource>
+			</AirportResources>
+		</LegData>
+		<TPA_Extension>
+			<ba:AirborneRepeatNumber>1</ba:AirborneRepeatNumber>
+		</TPA_Extension>
+	</FlightLeg>
+</IATA_AIDX_FlightLegNotifRQ>

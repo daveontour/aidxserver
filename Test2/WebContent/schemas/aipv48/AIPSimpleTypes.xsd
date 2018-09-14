@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (http://www.altova.com) by ﻿DD () -->
+<xs:schema xmlns:aip="http://www.sita.aero/aip/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sita.aero/aip/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="48">
+	<xs:simpleType name="AIPUniqueIDType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="AircraftFuselageClassificationType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Narrow"/>
+			<xs:enumeration value="Wide"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AircraftTypeIATACodeType">
+		<xs:restriction base="xs:string">
+			<xs:length value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AircraftTypeICAOCodeType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AircraftTypeQualifier">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IATA"/>
+			<xs:enumeration value="ICAO"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AirEquipType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">IATA aircraft type definition</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="4"/>
+			<xs:pattern value="[0-9A-Z]{3,4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AirlineCodeQualifierType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IATA"/>
+			<xs:enumeration value="ICAO"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AirlineCodeType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="2"/>
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AirportCodeQualifierType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IATA"/>
+			<xs:enumeration value="ICAO"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AirportIATACodeType">
+		<xs:restriction base="xs:string">
+			<xs:length value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AirportICAOCodeType">
+		<xs:restriction base="xs:string">
+			<xs:length value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AlphaNumeric1_4">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9a-zA-Z]{1,4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Availability">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Full"/>
+			<xs:enumeration value="Partial"/>
+			<xs:enumeration value="Unavailable"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DataCategoryType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Flight"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DaysOfWeek">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SUN"/>
+			<xs:enumeration value="MON"/>
+			<xs:enumeration value="TUE"/>
+			<xs:enumeration value="WED"/>
+			<xs:enumeration value="THU"/>
+			<xs:enumeration value="FRI"/>
+			<xs:enumeration value="SAT"/>
+			<xs:enumeration value="SUN"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DaysOfWeekList">
+		<xs:restriction>
+			<xs:simpleType>
+				<xs:list itemType="aip:DaysOfWeek"/>
+			</xs:simpleType>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EquipmentTypeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="GATE"/>
+			<xs:enumeration value="COUNTER"/>
+			<xs:enumeration value="BAGGAGECLAIM"/>
+			<xs:enumeration value="BAY"/>
+			<xs:enumeration value="RUNWAY"/>
+			<xs:enumeration value="CHUTE"/>
+			<xs:enumeration value="LOUNGE"/>
+			<xs:enumeration value="ARRIVALDESK"/>
+			<xs:enumeration value="VEHICLE"/>
+			<xs:enumeration value="GPU"/>
+			<xs:enumeration value="JETBRIDGE"/>
+			<xs:enumeration value="VDGS"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FareClass">
+		<xs:annotation>
+			<xs:documentation>IATA PSCRM fare class codes</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="P"/>
+			<xs:enumeration value="F"/>
+			<xs:enumeration value="A"/>
+			<xs:enumeration value="J"/>
+			<xs:enumeration value="C"/>
+			<xs:enumeration value="D"/>
+			<xs:enumeration value="I"/>
+			<xs:enumeration value="Z"/>
+			<xs:enumeration value="W"/>
+			<xs:enumeration value="S"/>
+			<xs:enumeration value="Y"/>
+			<xs:enumeration value="B"/>
+			<xs:enumeration value="H"/>
+			<xs:enumeration value="K"/>
+			<xs:enumeration value="L"/>
+			<xs:enumeration value="M"/>
+			<xs:enumeration value="N"/>
+			<xs:enumeration value="Q"/>
+			<xs:enumeration value="T"/>
+			<xs:enumeration value="V"/>
+			<xs:enumeration value="X"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FlightHandlerTypeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BAGGAGE"/>
+			<xs:enumeration value="PAX"/>
+			<xs:enumeration value="RAMP"/>
+			<xs:enumeration value="CARGO"/>
+			<xs:enumeration value="CHECKIN"/>
+			<xs:enumeration value="CATERING"/>
+			<xs:enumeration value="CLEANING"/>
+			<xs:enumeration value="COURIER"/>
+			<xs:enumeration value="CREWTRANSPORT"/>
+			<xs:enumeration value="DEICING"/>
+			<xs:enumeration value="MAIL"/>
+			<xs:enumeration value="MAINTENANCE"/>
+			<xs:enumeration value="GROUND"/>
+			<xs:enumeration value="FUELLING"/>
+			<xs:enumeration value="MARSHALLING"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FlightNatureType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ARRIVAL"/>
+			<xs:enumeration value="DEPARTURE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FlightNumberSuffixType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z]{1}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FlightScheduleManagementMessageType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PublishFlightScheduleDataInput"/>
+			<xs:enumeration value="PublishFlightScheduleDataOutput"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FlightScheduleType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Planned"/>
+			<xs:enumeration value="Approved"/>
+			<xs:enumeration value="NonRegular"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FlightServiceTypeType">
+		<xs:annotation>
+			<xs:documentation>IATA SSIM service type code</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="J"/>
+			<xs:enumeration value="S"/>
+			<xs:enumeration value="U"/>
+			<xs:enumeration value="F"/>
+			<xs:enumeration value="V"/>
+			<xs:enumeration value="M"/>
+			<xs:enumeration value="Q"/>
+			<xs:enumeration value="G"/>
+			<xs:enumeration value="B"/>
+			<xs:enumeration value="A"/>
+			<xs:enumeration value="R"/>
+			<xs:enumeration value="C"/>
+			<xs:enumeration value="O"/>
+			<xs:enumeration value="H"/>
+			<xs:enumeration value="L"/>
+			<xs:enumeration value="P"/>
+			<xs:enumeration value="T"/>
+			<xs:enumeration value="K"/>
+			<xs:enumeration value="D"/>
+			<xs:enumeration value="E"/>
+			<xs:enumeration value="W"/>
+			<xs:enumeration value="X"/>
+			<xs:enumeration value="Y"/>
+			<xs:enumeration value="Z"/>
+			<xs:enumeration value="I"/>
+			<xs:enumeration value="N"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FlightTerminationCategoryType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Terminating"/>
+			<xs:enumeration value="Transfer"/>
+			<xs:enumeration value="Transit"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GenericDataFieldType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="String"/>
+			<xs:enumeration value="Integer"/>
+			<xs:enumeration value="Float"/>
+			<xs:enumeration value="Datetime"/>
+			<xs:enumeration value="Double"/>
+			<xs:enumeration value="Date"/>
+			<xs:enumeration value="Boolean"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IATA_CodeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Represents code values from the IATA PADIS Codes List</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9A-Z]{1,3}(\.[A-Z]{3}(\.X){0,1}){0,1}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IATA_PADIS_FlightEventCodeContext">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="9750"/>
+			<xs:enumeration value="2005"/>
+			<xs:enumeration value="0000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IATA_PADIS_LoadCodeContext">
+		<xs:annotation>
+			<xs:documentation>Specifies the PADIS code set (or custom) context of a flight load code</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="9989"/>
+			<xs:enumeration value="0000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IATA_PADIS_ServiceCodeContext">
+		<xs:annotation>
+			<xs:documentation>Specifies the PADIS code set (or custom) context of a flight service code</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="9932"/>
+			<xs:enumeration value="0000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IATA_PADIS_StatusCodeContext">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1245"/>
+			<xs:enumeration value="2005"/>
+			<xs:enumeration value="0000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IdentityEntityType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="User"/>
+			<xs:enumeration value="Group"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IDManagementMessageType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PublishIAMDataInput"/>
+			<xs:enumeration value="PublishIAMDataOutput"/>
+			<xs:enumeration value="GetIAMDataInput"/>
+			<xs:enumeration value="GetIIAMDataOutput"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="InternationalStatusType">
+		<xs:annotation>
+			<xs:documentation>Specifies whether flight is classified as international, domestic or regional</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="INTERNATIONAL"/>
+			<xs:enumeration value="DOMESTIC"/>
+			<xs:enumeration value="REGIONAL"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LengthUnit">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Millimeter"/>
+			<xs:enumeration value="Centimeter"/>
+			<xs:enumeration value="Meter"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MessageType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PublishFlightDataInput"/>
+			<xs:enumeration value="PublishFlightDataResponse"/>
+			<xs:enumeration value="PublishGenericDataInput"/>
+			<xs:enumeration value="PublishGenericDataResponse"/>
+			<xs:enumeration value="GetFlightDataInput"/>
+			<xs:enumeration value="GetFlightDataResponse"/>
+			<xs:enumeration value="SubscribeInput"/>
+			<xs:enumeration value="SubscribeResponse"/>
+			<xs:enumeration value="UnsubscribeInput"/>
+			<xs:enumeration value="UnsubscribeResponse"/>
+			<xs:enumeration value="PublishSITATexDataInput"/>
+			<xs:enumeration value="PublishSITATexDataResponse"/>
+			<xs:enumeration value="PublishFlightScheduleDataInput"/>
+			<xs:enumeration value="PublishFlightScheduleDataResponse"/>
+			<xs:enumeration value="Lifesign"/>
+			<xs:enumeration value="PublishReferenceDataAirlineInput"/>
+			<xs:enumeration value="PublishReferenceDataAirlineResponse"/>
+			<xs:enumeration value="GetReferenceDataAirlineInput"/>
+			<xs:enumeration value="GetReferenceDataAirlineResponse"/>
+			<xs:enumeration value="PublishReferenceDataAirportInput"/>
+			<xs:enumeration value="PublishReferenceDataAirportResponse"/>
+			<xs:enumeration value="GetReferenceDataAirportInput"/>
+			<xs:enumeration value="GetReferenceDataAirportResponse"/>
+			<xs:enumeration value="PublishReferenceDataAircraftTypeInput"/>
+			<xs:enumeration value="PublishReferenceDataAircraftTypeResponse"/>
+			<xs:enumeration value="GetReferenceDataAircraftTypeInput"/>
+			<xs:enumeration value="GetReferenceDataAircraftTypeResponse"/>
+			<xs:enumeration value="PublishReferenceDataAircraftInput"/>
+			<xs:enumeration value="PublishReferenceDataAircraftResponse"/>
+			<xs:enumeration value="GetReferenceDataAircraftInput"/>
+			<xs:enumeration value="GetReferenceDataAircraftResponse"/>
+			<xs:enumeration value="Fault"/>
+			<xs:enumeration value="Custom"/>
+			<xs:enumeration value="PublishEquipmentStatusInput"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NullValueOrdering">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NullsFirst"/>
+			<xs:enumeration value="NullsLast"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PassengerServiceClass">
+		<xs:annotation>
+			<xs:documentation>Cabin class of service according to PADIS codes section 9873</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+			<xs:enumeration value="5"/>
+			<xs:enumeration value="6"/>
+			<xs:enumeration value="7"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ProcessingResponseRequired">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="ResourceTypeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="GATE"/>
+			<xs:enumeration value="COUNTER"/>
+			<xs:enumeration value="BAGGAGECLAIM"/>
+			<xs:enumeration value="BAY"/>
+			<xs:enumeration value="RUNWAY"/>
+			<xs:enumeration value="CHUTE"/>
+			<xs:enumeration value="LOUNGE"/>
+			<xs:enumeration value="ARRIVALDESK"/>
+			<xs:enumeration value="VEHICLE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ResultType">
+		<xs:annotation>
+			<xs:documentation>Indicates success or error</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SUCCESS"/>
+			<xs:enumeration value="ERROR"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ServicesUsageQuantityUnit">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Units"/>
+			<xs:enumeration value="Minutes"/>
+			<xs:enumeration value="kWh"/>
+			<xs:enumeration value="Litres"/>
+			<xs:enumeration value="Cubic Meters"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SITATexMessageTypeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LDM"/>
+			<xs:enumeration value="MVT"/>
+			<xs:enumeration value="BMS"/>
+			<xs:enumeration value="ASM"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SortOrder">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Ascending"/>
+			<xs:enumeration value="Descending"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SourceUniqueIDType">
+		<xs:restriction base="xs:unsignedLong"/>
+	</xs:simpleType>
+	<xs:simpleType name="SSROSICodesType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BLND"/>
+			<xs:enumeration value="DEAF"/>
+			<xs:enumeration value="DEPA"/>
+			<xs:enumeration value="DEPU"/>
+			<xs:enumeration value="EMIG"/>
+			<xs:enumeration value="INAD"/>
+			<xs:enumeration value="LANG"/>
+			<xs:enumeration value="MAAS"/>
+			<xs:enumeration value="MEDA"/>
+			<xs:enumeration value="STCR"/>
+			<xs:enumeration value="TWOV"/>
+			<xs:enumeration value="UMNR"/>
+			<xs:enumeration value="VIP"/>
+			<xs:enumeration value="WCHC"/>
+			<xs:enumeration value="WCHR"/>
+			<xs:enumeration value="WCHS"/>
+			<xs:enumeration value="WEAP"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SubscriptionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Real-time"/>
+			<xs:enumeration value="Batch"/>
+			<xs:enumeration value="Both"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SystemRoleType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="ReadUser"/>
+			<xs:enumeration value="WriteUser"/>
+			<xs:enumeration value="SuperUser"/>
+			<xs:enumeration value="Administrator"/>
+			<xs:enumeration value="Revoked"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Terminal">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TimezoneIndicator">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Local"/>
+			<xs:enumeration value="UTC"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TransportType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="WS"/>
+			<xs:enumeration value="WMQ"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="WeightUnit">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="KG"/>
+			<xs:enumeration value="LBS"/>
+			<xs:enumeration value="T"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

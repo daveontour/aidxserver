@@ -1,0 +1,81 @@
+<xs:schema xmlns="http://www.iata.org/IATA/2007/00"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.iata.org/IATA/2007/00"
+	elementFormDefault="qualified"
+	version="2.005" id="IATA2017.1">
+	<xs:include schemaLocation="IATA_CommonTypes.xsd" />
+	<xs:include schemaLocation="IATA_SimpleTypes.xsd" />
+	<xs:include schemaLocation="IATA_AIDX_CommonTypes.xsd" />
+	<xs:element name="AIDXMessage" type="AIDXMessage" />
+	<xs:complexType name="AIDXMessage">
+		<xs:choice>
+			<xs:element name="IATA_AIDX_FlightLegNotifRQ"
+				minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Originator">
+							<xs:complexType>
+								<xs:attributeGroup
+									ref="CompanyID_AttributesGroup" />
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="DeliveringSystem" minOccurs="0">
+							<xs:complexType>
+								<xs:attributeGroup
+									ref="CompanyID_AttributesGroup" />
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="FlightLeg" type="FlightLegType"
+							maxOccurs="unbounded">
+						</xs:element>
+					</xs:sequence>
+					<xs:attributeGroup
+						ref="IATA_PayloadStdAttributes" />
+					<xs:attribute name="CodeContext" type="IATA_CodeType"
+						use="optional">
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="IATA_AIDX_FlightLegRQ" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Airline" minOccurs="0">
+							<xs:complexType>
+								<xs:attribute name="Code" type="AirlineType"
+									use="required">
+								</xs:attribute>
+								<xs:attribute name="CodeContext"
+									type="IATA_CodeType" use="optional">
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attributeGroup
+						ref="IATA_PayloadStdAttributes" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="IATA_AIDX_FlightLegRS" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:choice>
+						<xs:sequence>
+							<xs:element name="Success" type="SuccessType">
+							</xs:element>
+							<xs:element name="Warnings" type="WarningsType"
+								minOccurs="0" />
+							<xs:element name="FlightLeg" type="FlightLegType"
+								minOccurs="0" maxOccurs="unbounded" />
+						</xs:sequence>
+						<xs:element name="Errors" type="ErrorsType" />
+					</xs:choice>
+					<xs:attributeGroup
+						ref="IATA_PayloadStdAttributes" />
+					<xs:attribute name="CodeContext" type="IATA_CodeType"
+						use="optional">
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

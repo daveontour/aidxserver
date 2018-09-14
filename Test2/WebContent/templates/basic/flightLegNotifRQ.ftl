@@ -1,0 +1,1 @@
+<#include "../normal/normal.ftl" parse=true>

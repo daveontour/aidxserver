@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (http://www.altova.com) by ﻿DD () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:aip="http://www.sita.aero/aip/XMLSchema" targetNamespace="http://www.sita.aero/aip/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.0">
+	<xs:include schemaLocation="AODBFields.xsd"/>
+	<xs:include schemaLocation="AODBTables.xsd"/>
+	<xs:complexType name="AIPFlightDataCustomFields">
+		<xs:annotation>
+			<xs:documentation>Default custom fields container with no child elements</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="aip:AODBFields" minOccurs="0"/>
+			<xs:element ref="aip:AODBTables" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AIPBaseDataCustomFields">
+		<xs:annotation>
+			<xs:documentation>Default custom fields container with no child elements</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="aip:AODBFields" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AIPFlightScheduleDataCustomFields">
+		<xs:sequence>
+			<xs:element ref="aip:AODBFields" minOccurs="0"/>
+			<xs:element ref="aip:AODBTables" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

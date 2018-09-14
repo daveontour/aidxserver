@@ -1,0 +1,3399 @@
+{
+  "attributes": [
+    {
+      "name": "TimeStamp",
+      "required": false,
+      "description": "Indicates the creation date and time of the message in UTC using the following format specified by ISO 8601; YYYY-MM-DDThh:mm:ssZ with time values using the 24 hour clock (e.g. 20 November 2003, 1:59:38 pm UTC becomes 2003-11-20T13:59:38Z).",
+      "enabled": false,
+      "model": "xs:dateTime",
+      "modelDescription": "Select Date"
+    },
+    {
+      "name": "AsynchronousAllowedInd",
+      "required": false,
+      "description": "\n                        When true, indicates that the client can accept asynchronous processing.\n                    ",
+      "enabled": false,
+      "model": "xs:boolean",
+      "modelDescription": "Select ON/OFF"
+    },
+    {
+      "name": "PrimaryLangID",
+      "required": false,
+      "description": "Identifes the primary language preference for the message.  The human language is identified by ISO 639 codes.",
+      "enabled": false,
+      "model": "xs:language",
+      "modelDescription": "RFC 1766 language codes"
+    },
+    {
+      "name": "AltLangID",
+      "required": false,
+      "description": "Identifies the alternate language for a customer or message.  The human language is identified by ISO 639 codes.",
+      "enabled": false,
+      "model": "xs:language",
+      "modelDescription": "RFC 1766 language codes"
+    },
+    {
+      "name": "SequenceNmbr",
+      "required": false,
+      "description": "Used to identify the sequence number of the transaction as assigned by the sending system; allows for an application to process messages in a certain order or to request a resynchronization of messages in the event that a system has been off-line and needs to retrieve messages that were missed. ",
+      "enabled": false,
+      "model": "xs:integer",
+      "modelDescription": "Any Non Negative Integer"
+    },
+    {
+      "name": "CorrelationID",
+      "required": false,
+      "description": "Allow end-to-end correlation of log messages with the corresponding Web service message throughout the processing of the Web service message.",
+      "enabled": false,
+      "model": "minmaxlength",
+      "minLength": "1",
+      "maxLength": "64",
+      "modelDescription": "String of minimum length 1 and maximum length 64"
+    },
+    {
+      "name": "RetransmissionIndicator",
+      "required": false,
+      "description": "When true, indicates the message is being re-sent after a failure. It is recommended that this attribute is used (i.e., set to TRUE) only when a message is retransmitted.",
+      "enabled": false,
+      "model": "xs:boolean",
+      "modelDescription": "Select ON/OFF"
+    },
+    {
+      "name": "EchoToken",
+      "required": false,
+      "description": "A reference for additional message identification, assigned by the requesting host system. When a request message includes an echo token the corresponding response message MUST include an echo token with an identical value.",
+      "enabled": false,
+      "model": "minmaxlength",
+      "minLength": "1",
+      "maxLength": "128",
+      "modelDescription": "String of minimum length 1 and maximum length 128"
+    },
+    {
+      "name": "TransactionIdentifier",
+      "required": false,
+      "description": "A unique identifier to relate all messages within a transaction (e.g. this would be sent in all request and response messages that are part of an on-going transaction).",
+      "enabled": false,
+      "model": "minmaxlength",
+      "minLength": "1",
+      "maxLength": "32",
+      "modelDescription": "String of minimum length 1 and maximum length 32"
+    },
+    {
+      "name": "CodeContext",
+      "required": false,
+      "description": "Specifies the context of the airline and airport codes, such as IATA or ICAO.  Refer to IATA PADIS Code List for data element 3055.  The code context at this level applies to all airline and airport codes in the message unless overridden at a lower level by specifying a different code context for a specific data item.",
+      "enabled": false,
+      "model": "pattern",
+      "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+      "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+    },
+    {
+      "name": "Version",
+      "required": true,
+      "description": "For all IATA versioned messages, the version of the message is indicated by a decimal value.",
+      "enabled": true,
+      "model": "xs:decimal",
+      "modelDescription": "A decimal number"
+    },
+    {
+      "name": "TransactionStatusCode",
+      "required": false,
+      "description": "This indicates where this message falls within a sequence of messages. ",
+      "enabled": false,
+      "model": "enumlist",
+      "restrictionEnumList": [
+        "Start",
+        "End",
+        "Rollback",
+        "InSeries",
+        "Continuation",
+        "Subsequent"
+      ],
+      "modelDescription": "Select from the list of values"
+    },
+    {
+      "name": "Target",
+      "required": false,
+      "description": "Used to indicate whether the request is for the Test or Production system.",
+      "enabled": false,
+      "model": "enumlist",
+      "restrictionEnumList": [
+        "Test",
+        "Production"
+      ],
+      "modelDescription": "Select from the list of values"
+    }
+  ],
+  "childelements": [
+    {
+      "attributes": [
+        {
+          "name": "Code",
+          "required": false,
+          "description": "Identifies the IATA 2-3 character airline code.",
+          "enabled": false,
+          "model": "minmaxlength",
+          "minLength": "1",
+          "maxLength": "16",
+          "modelDescription": "String of minimum length 1 and maximum length 16"
+        },
+        {
+          "name": "TravelSector",
+          "required": false,
+          "description": "Specifies the type of company.  Refer to IATA PADIS Code List for data element 4025.",
+          "enabled": false,
+          "model": "pattern",
+          "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+          "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+        },
+        {
+          "name": "CodeContext",
+          "required": false,
+          "description": "Identifies the context of the identifying code, such as DUNS, IATA or internal code, etc.",
+          "enabled": false,
+          "model": "minmaxlength",
+          "minLength": "1",
+          "maxLength": "32",
+          "modelDescription": "String of minimum length 1 and maximum length 32"
+        },
+        {
+          "name": "CompanyShortName",
+          "required": false,
+          "description": "Used to provide the company common name.",
+          "enabled": false,
+          "model": "minmaxlength",
+          "minLength": "1",
+          "maxLength": "32",
+          "modelDescription": "String of minimum length 1 and maximum length 32"
+        }
+      ],
+      "childelements": [],
+      "choiceElementIdentifiers": [],
+      "description": "The originator of the message.",
+      "complex": "YES",
+      "name": "Originator",
+      "required": true,
+      "minOccurs": 1,
+      "maxOccurs": 1,
+      "annotation": "The originator of the message.",
+      "qname": {
+        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+        "localPart": "Originator",
+        "prefix": ""
+      },
+      "choice": false,
+      "restrictionEnumList": []
+    },
+    {
+      "attributes": [
+        {
+          "name": "Code",
+          "required": false,
+          "description": "Identifies the IATA 2-3 character airline code.",
+          "enabled": false,
+          "model": "minmaxlength",
+          "minLength": "1",
+          "maxLength": "16",
+          "modelDescription": "String of minimum length 1 and maximum length 16"
+        },
+        {
+          "name": "TravelSector",
+          "required": false,
+          "description": "Specifies the type of company.  Refer to IATA PADIS Code List for data element 4025.",
+          "enabled": false,
+          "model": "pattern",
+          "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+          "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+        },
+        {
+          "name": "CodeContext",
+          "required": false,
+          "description": "Identifies the context of the identifying code, such as DUNS, IATA or internal code, etc.",
+          "enabled": false,
+          "model": "minmaxlength",
+          "minLength": "1",
+          "maxLength": "32",
+          "modelDescription": "String of minimum length 1 and maximum length 32"
+        },
+        {
+          "name": "CompanyShortName",
+          "required": false,
+          "description": "Used to provide the company common name.",
+          "enabled": false,
+          "model": "minmaxlength",
+          "minLength": "1",
+          "maxLength": "32",
+          "modelDescription": "String of minimum length 1 and maximum length 32"
+        }
+      ],
+      "childelements": [],
+      "choiceElementIdentifiers": [],
+      "description": "The identifier of the system that delivered the message if different form the originator.",
+      "complex": "YES",
+      "name": "DeliveringSystem",
+      "required": false,
+      "minOccurs": 0,
+      "maxOccurs": 1,
+      "annotation": "The identifier of the system that delivered the message if different form the originator.",
+      "qname": {
+        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+        "localPart": "DeliveringSystem",
+        "prefix": ""
+      },
+      "choice": false,
+      "restrictionEnumList": []
+    },
+    {
+      "attributes": [],
+      "childelements": [
+        {
+          "attributes": [],
+          "childelements": [
+            {
+              "attributes": [],
+              "childelements": [
+                {
+                  "attributes": [
+                    {
+                      "name": "CodeContext",
+                      "required": false,
+                      "description": "Specifies the context of the airline code, such as IATA or ICAO.  Refer to IATA PADIS Code List for data element 3055.",
+                      "enabled": false,
+                      "model": "pattern",
+                      "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                      "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                    }
+                  ],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])",
+                  "minLength": "2",
+                  "maxLength": "3",
+                  "model": "minmaxlengthpattern",
+                  "modelDescription": "String of the pattern ([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])",
+                  "description": "The operating airline code.",
+                  "complex": "YES",
+                  "name": "Airline",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The operating airline code.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "Airline",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[0-9]{1,4}",
+                  "model": "pattern",
+                  "modelDescription": "String of the pattern [0-9]{1,4}",
+                  "description": "The actual flight number.",
+                  "complex": "NO",
+                  "name": "FlightNumber",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The actual flight number.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "FlightNumber",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[a-zA-Z]{1}",
+                  "model": "pattern",
+                  "modelDescription": "String of the pattern [a-zA-Z]{1}",
+                  "description": "The operational suffix for the flight.",
+                  "complex": "NO",
+                  "name": "OperationalSuffix",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The operational suffix for the flight.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "OperationalSuffix",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [
+                    {
+                      "name": "CodeContext",
+                      "required": false,
+                      "description": "Specifies the context of the airport code, such as IATA or ICAO.  Refer to IATA PADIS Code List for data element 3055.",
+                      "enabled": false,
+                      "model": "pattern",
+                      "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                      "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                    }
+                  ],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[A-Z]{3,4}",
+                  "minLength": "3",
+                  "maxLength": "4",
+                  "model": "minmaxlengthpattern",
+                  "modelDescription": "String of the pattern [A-Z]{3,4}",
+                  "description": "The scheduled departure airport.",
+                  "complex": "YES",
+                  "name": "DepartureAirport",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The scheduled departure airport.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "DepartureAirport",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [
+                    {
+                      "name": "CodeContext",
+                      "required": false,
+                      "description": "Specifies the context of the airport code, such as IATA or ICAO.  Refer to IATA PADIS Code List for data element 3055.",
+                      "enabled": false,
+                      "model": "pattern",
+                      "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                      "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                    }
+                  ],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[A-Z]{3,4}",
+                  "minLength": "3",
+                  "maxLength": "4",
+                  "model": "minmaxlengthpattern",
+                  "modelDescription": "String of the pattern [A-Z]{3,4}",
+                  "description": "The scheduled arrival airport.",
+                  "complex": "YES",
+                  "name": "ArrivalAirport",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The scheduled arrival airport.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "ArrivalAirport",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "model": "xs:date",
+                  "modelDescription": "Select Date",
+                  "description": "The scheduled flight origin date based on the flight not the flight leg.  This date must not change once intialized in an AIDX message.",
+                  "complex": "NO",
+                  "name": "OriginDate",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The scheduled flight origin date based on the flight not the flight leg.  This date must not change once intialized in an AIDX message.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "OriginDate",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [
+                    {
+                      "name": "CurrentInd",
+                      "required": false,
+                      "description": "When true the leg with this repeat number operated the flight and when  false this leg has been replaced by another leg.",
+                      "enabled": false,
+                      "model": "xs:boolean",
+                      "modelDescription": "Select ON/OFF"
+                    },
+                    {
+                      "name": "AirborneReturnNumber",
+                      "required": false,
+                      "description": "Determines the quantity of airborne returns in RepeatNumber.",
+                      "enabled": false,
+                      "model": "minmaxinclusive",
+                      "minInclusive": "1",
+                      "maxInclusive": "99",
+                      "modelDescription": "Integer of minimum value null and maximum value 99"
+                    }
+                  ],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "maxInclusive": "99",
+                  "model": "minmaxinclusive",
+                  "modelDescription": "Integer of minimum value null and maximum value 99",
+                  "description": "The repeat or departure attempt number.",
+                  "complex": "YES",
+                  "name": "RepeatNumber",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The repeat or departure attempt number.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "RepeatNumber",
+                    "prefix": ""
+                  },
+                  "choice": false
+                }
+              ],
+              "choiceElementIdentifiers": [],
+              "description": "Uniquely identify a flight leg.",
+              "complex": "YES",
+              "name": "LegIdentifier",
+              "required": true,
+              "minOccurs": 1,
+              "maxOccurs": 1,
+              "annotation": "Uniquely identify a flight leg.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "LegIdentifier",
+                "prefix": ""
+              },
+              "choice": false,
+              "restrictionEnumList": []
+            },
+            {
+              "attributes": [],
+              "childelements": [
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])",
+                  "minLength": "2",
+                  "maxLength": "3",
+                  "model": "minmaxlengthpattern",
+                  "modelDescription": "String of the pattern ([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])",
+                  "description": "The operating airline code.",
+                  "complex": "YES",
+                  "name": "Airline",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The operating airline code.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "Airline",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [
+                    {
+                      "name": "Category",
+                      "required": true,
+                      "description": "The category of General Aviation identifier such as Callsign, Registraton, Other",
+                      "enabled": true,
+                      "model": "enumlist",
+                      "restrictionEnumList": [
+                        "Callsign",
+                        "Registration",
+                        "Other"
+                      ],
+                      "modelDescription": "Select from the list of values"
+                    }
+                  ],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "model": "xs:string",
+                  "modelDescription": "A string of characters",
+                  "description": "The GA identifier.",
+                  "complex": "YES",
+                  "name": "GeneralAviationIdentifier",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The GA identifier.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "GeneralAviationIdentifier",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[A-Z]{3,4}",
+                  "minLength": "3",
+                  "maxLength": "4",
+                  "model": "minmaxlengthpattern",
+                  "modelDescription": "String of the pattern [A-Z]{3,4}",
+                  "description": "The scheduled departure airport.",
+                  "complex": "YES",
+                  "name": "DepartureAirport",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The scheduled departure airport.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "DepartureAirport",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "model": "xs:dateTime",
+                  "modelDescription": "Select Date",
+                  "description": "Planned departure time (UTC).  Is part of the fllight identifier so does not change once set.  Does not reflect the actual departure time.",
+                  "complex": "NO",
+                  "name": "PlannedDepartureDateTime",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "Planned departure time (UTC).  Is part of the fllight identifier so does not change once set.  Does not reflect the actual departure time.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "PlannedDepartureDateTime",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[0-9]{1,4}",
+                  "model": "pattern",
+                  "modelDescription": "String of the pattern [0-9]{1,4}",
+                  "description": "The actual flight number.",
+                  "complex": "NO",
+                  "name": "FlightNumber",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The actual flight number.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "FlightNumber",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[a-zA-Z]{1}",
+                  "model": "pattern",
+                  "modelDescription": "String of the pattern [a-zA-Z]{1}",
+                  "description": "The operational suffix for the flight.",
+                  "complex": "NO",
+                  "name": "OperationalSuffix",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The operational suffix for the flight.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "OperationalSuffix",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[A-Z]{3,4}",
+                  "minLength": "3",
+                  "maxLength": "4",
+                  "model": "minmaxlengthpattern",
+                  "modelDescription": "String of the pattern [A-Z]{3,4}",
+                  "description": "The scheduled arrival airport.",
+                  "complex": "YES",
+                  "name": "ArrivalAirport",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The scheduled arrival airport.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "ArrivalAirport",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "maxInclusive": "99",
+                  "model": "minmaxinclusive",
+                  "modelDescription": "Integer of minimum value null and maximum value 99",
+                  "description": "The repeat or departure attempt number.",
+                  "complex": "YES",
+                  "name": "RepeatNumber",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The repeat or departure attempt number.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "RepeatNumber",
+                    "prefix": ""
+                  },
+                  "choice": false
+                }
+              ],
+              "choiceElementIdentifiers": [],
+              "description": "The GA identifier.",
+              "complex": "YES",
+              "name": "GeneralAviationLegIdentifier",
+              "required": true,
+              "minOccurs": 1,
+              "maxOccurs": 1,
+              "annotation": "The GA identifier.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "GeneralAviationLegIdentifier",
+                "prefix": ""
+              },
+              "choice": false,
+              "restrictionEnumList": []
+            }
+          ],
+          "choiceElementIdentifiers": [
+            "LegIdentifier",
+            "GeneralAviationLegIdentifier"
+          ],
+          "complex": "NO",
+          "name": "{Choice}",
+          "required": true,
+          "minOccurs": 1,
+          "maxOccurs": 1,
+          "choice": true,
+          "restrictionEnumList": []
+        },
+        {
+          "attributes": [],
+          "childelements": [],
+          "choiceElementIdentifiers": [],
+          "model": "enumlist",
+          "modelDescription": "Select from the list of values",
+          "description": "A special action which should be taken on the record.",
+          "complex": "NO",
+          "name": "SpecialAction",
+          "required": false,
+          "minOccurs": 0,
+          "maxOccurs": 1,
+          "annotation": "A special action which should be taken on the record.",
+          "qname": {
+            "namespaceURI": "http://www.iata.org/IATA/2007/00",
+            "localPart": "SpecialAction",
+            "prefix": ""
+          },
+          "choice": false,
+          "restrictionEnumList": [
+            "Delete",
+            "LockDown",
+            "DoNotDisplay"
+          ]
+        },
+        {
+          "attributes": [
+            {
+              "name": "FlightClassification",
+              "required": false,
+              "description": "The commercial name for express or other sub-carriers for the operating flight.",
+              "enabled": false,
+              "model": "minmaxlength",
+              "minLength": "0",
+              "maxLength": "10",
+              "modelDescription": "String of minimum length 0 and maximum length 10"
+            },
+            {
+              "name": "InternationalStatus",
+              "required": false,
+              "description": "Specifies if the flight is international or domestic.",
+              "enabled": false,
+              "model": "enumlist",
+              "restrictionEnumList": [
+                "International",
+                "Domestic"
+              ],
+              "modelDescription": "Select from the list of values"
+            }
+          ],
+          "childelements": [
+            {
+              "attributes": [
+                {
+                  "name": "RepeatIndex",
+                  "required": false,
+                  "description": "Identifies an order for a repdeating item.",
+                  "enabled": false,
+                  "model": "minmaxinclusive",
+                  "minInclusive": "1",
+                  "maxInclusive": "99",
+                  "modelDescription": "Integer of minimum value null and maximum value 99"
+                },
+                {
+                  "name": "CodeContext",
+                  "required": false,
+                  "description": "Used to specify the IATA PADIS Code List used, retained for compatibility with earlier schema versions.",
+                  "enabled": false,
+                  "model": "xs:string",
+                  "modelDescription": "A string of characters"
+                },
+                {
+                  "name": "FlightLegScope",
+                  "required": false,
+                  "description": "To specify if information is for a departure or arrival or overall flight.",
+                  "enabled": false,
+                  "model": "enumlist",
+                  "restrictionEnumList": [
+                    "Departure",
+                    "Arrival",
+                    "FlightLeg"
+                  ],
+                  "modelDescription": "Select from the list of values"
+                }
+              ],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+              "model": "pattern",
+              "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+              "description": "Used to inform the airline and airport operational staff concerning the status of a flight leg.  Refer to IATA PADIS Code List for data element 9750.",
+              "complex": "YES",
+              "name": "OperationalStatus",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 5,
+              "annotation": "Used to inform the airline and airport operational staff concerning the status of a flight leg.  Refer to IATA PADIS Code List for data element 9750.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "OperationalStatus",
+                "prefix": ""
+              },
+              "choice": false
+            },
+            {
+              "attributes": [
+                {
+                  "name": "CodeContext",
+                  "required": false,
+                  "description": "Used to specify if the remark text code is from IATA PADIS Code List for data element 1245 or 2005.",
+                  "enabled": false,
+                  "model": "xs:string",
+                  "modelDescription": "A string of characters"
+                },
+                {
+                  "name": "FlightLegScope",
+                  "required": false,
+                  "description": "To specify if information is for a departure or arrival or overall flight.",
+                  "enabled": false,
+                  "model": "enumlist",
+                  "restrictionEnumList": [
+                    "Departure",
+                    "Arrival",
+                    "FlightLeg"
+                  ],
+                  "modelDescription": "Select from the list of values"
+                }
+              ],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+              "model": "pattern",
+              "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+              "description": "A list of flight leg statuses that can be displayed to the public.  Refer to IATA PADIS Code List for data element 1245 and 2005.",
+              "complex": "YES",
+              "name": "PublicStatus",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 2,
+              "annotation": "A list of flight leg statuses that can be displayed to the public.  Refer to IATA PADIS Code List for data element 1245 and 2005.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "PublicStatus",
+                "prefix": ""
+              },
+              "choice": false
+            },
+            {
+              "attributes": [],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+              "model": "pattern",
+              "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+              "description": "The operating alliance for the flight.  Refer to IATA PADIS Code List for data element 9906.",
+              "complex": "NO",
+              "name": "OperatingAlliance",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 1,
+              "annotation": "The operating alliance for the flight.  Refer to IATA PADIS Code List for data element 9906.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "OperatingAlliance",
+                "prefix": ""
+              },
+              "choice": false
+            },
+            {
+              "attributes": [],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "pattern": "[A-Z]{1}",
+              "model": "pattern",
+              "modelDescription": "String of the pattern [A-Z]{1}",
+              "description": "The IATA flight service type of the operating flight.  Use SSIM service types.",
+              "complex": "NO",
+              "name": "ServiceType",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 1,
+              "annotation": "The IATA flight service type of the operating flight.  Use SSIM service types.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "ServiceType",
+                "prefix": ""
+              },
+              "choice": false
+            },
+            {
+              "attributes": [
+                {
+                  "name": "DepartureOrArrival",
+                  "required": false,
+                  "description": "Specifies if the technical stop applies to the departure or arrival part of the flight leg.",
+                  "enabled": false,
+                  "model": "enumlist",
+                  "restrictionEnumList": [
+                    "Departure",
+                    "Arrival"
+                  ],
+                  "modelDescription": "Select from the list of values"
+                }
+              ],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "model": "xs:boolean",
+              "modelDescription": "Select ON/OFF",
+              "description": "If true, this is a technical stop.  If false, it is not a technical stop.",
+              "complex": "YES",
+              "name": "TechnicalStopInd",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 2,
+              "annotation": "If true, this is a technical stop.  If false, it is not a technical stop.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "TechnicalStopInd",
+                "prefix": ""
+              },
+              "choice": false
+            },
+            {
+              "attributes": [],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "model": "xs:boolean",
+              "modelDescription": "Select ON/OFF",
+              "description": "If true, additional security checks are required for departure.",
+              "complex": "NO",
+              "name": "DepSecurityCheckInd",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 1,
+              "annotation": "If true, additional security checks are required for departure.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "DepSecurityCheckInd",
+                "prefix": ""
+              },
+              "choice": false
+            },
+            {
+              "attributes": [],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "model": "xs:boolean",
+              "modelDescription": "Select ON/OFF",
+              "description": "If true, addtional security checks are required for the arrival part of the flight leg.",
+              "complex": "NO",
+              "name": "ArrSecurityCheckInd",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 1,
+              "annotation": "If true, addtional security checks are required for the arrival part of the flight leg.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "ArrSecurityCheckInd",
+                "prefix": ""
+              },
+              "choice": false
+            },
+            {
+              "attributes": [],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "model": "xs:duration",
+              "modelDescription": "Enter Duration",
+              "description": "The estimated flight duration time (the time  from off blocks to block time).",
+              "complex": "NO",
+              "name": "EstFlightDuration",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 1,
+              "annotation": "The estimated flight duration time (the time  from off blocks to block time).",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "EstFlightDuration",
+                "prefix": ""
+              },
+              "choice": false
+            },
+            {
+              "attributes": [],
+              "childelements": [
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])",
+                  "minLength": "2",
+                  "maxLength": "3",
+                  "model": "minmaxlengthpattern",
+                  "modelDescription": "String of the pattern ([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])",
+                  "description": "The aircraft owner code.",
+                  "complex": "YES",
+                  "name": "Airline",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The aircraft owner code.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "Airline",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[0-9]{1,4}",
+                  "model": "pattern",
+                  "modelDescription": "String of the pattern [0-9]{1,4}",
+                  "description": "The aircraft owner flight number.",
+                  "complex": "NO",
+                  "name": "FlightNumber",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The aircraft owner flight number.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "FlightNumber",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[a-zA-Z]{1}",
+                  "model": "pattern",
+                  "modelDescription": "String of the pattern [a-zA-Z]{1}",
+                  "description": "The operational suffix for the flight.",
+                  "complex": "NO",
+                  "name": "OperationalSuffix",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The operational suffix for the flight.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "OperationalSuffix",
+                    "prefix": ""
+                  },
+                  "choice": false
+                }
+              ],
+              "choiceElementIdentifiers": [],
+              "description": "Aircraft owner information.",
+              "complex": "YES",
+              "name": "OwnerAirline",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 1,
+              "annotation": "Aircraft owner information.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "OwnerAirline",
+                "prefix": ""
+              },
+              "choice": false,
+              "restrictionEnumList": []
+            },
+            {
+              "attributes": [
+                {
+                  "name": "RepeatIndex",
+                  "required": false,
+                  "description": "Identifies an order for a repdeating item.",
+                  "enabled": false,
+                  "model": "minmaxinclusive",
+                  "minInclusive": "1",
+                  "maxInclusive": "99",
+                  "modelDescription": "Integer of minimum value null and maximum value 99"
+                },
+                {
+                  "name": "CodeContext",
+                  "required": false,
+                  "description": "Specifies the context of the airport code, such as IATA or ICAO.  Refer to IATA PADIS Code List for data element 3055.",
+                  "enabled": false,
+                  "model": "pattern",
+                  "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                  "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                }
+              ],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "pattern": "[A-Z]{3,4}",
+              "minLength": "3",
+              "maxLength": "4",
+              "model": "minmaxlengthpattern",
+              "modelDescription": "String of the pattern [A-Z]{3,4}",
+              "description": "An airport where the leg has either arrived or is planned to arrive.",
+              "complex": "YES",
+              "name": "PlannedArrivalAptHistory",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 10,
+              "annotation": "An airport where the leg has either arrived or is planned to arrive.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "PlannedArrivalAptHistory",
+                "prefix": ""
+              },
+              "choice": false
+            },
+            {
+              "attributes": [
+                {
+                  "name": "RepeatIndex",
+                  "required": false,
+                  "description": "Identifies an order for a repdeating item.",
+                  "enabled": false,
+                  "model": "minmaxinclusive",
+                  "minInclusive": "1",
+                  "maxInclusive": "99",
+                  "modelDescription": "Integer of minimum value null and maximum value 99"
+                }
+              ],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+              "model": "pattern",
+              "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+              "description": "Used to specify if the flight requires special attention or handling.  Refer to IATA PADIS Code List EMP.",
+              "complex": "YES",
+              "name": "SpecialEmphasis",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 3,
+              "annotation": "Used to specify if the flight requires special attention or handling.  Refer to IATA PADIS Code List EMP.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "SpecialEmphasis",
+                "prefix": ""
+              },
+              "choice": false
+            },
+            {
+              "attributes": [
+                {
+                  "name": "RepeatIndex",
+                  "required": false,
+                  "description": "Identifies an order for a repdeating item.",
+                  "enabled": false,
+                  "model": "minmaxinclusive",
+                  "minInclusive": "1",
+                  "maxInclusive": "99",
+                  "modelDescription": "Integer of minimum value null and maximum value 99"
+                },
+                {
+                  "name": "DepartureOrArrival",
+                  "required": true,
+                  "description": "Specifies if the delay is for a departure or an arrival.",
+                  "enabled": true,
+                  "model": "enumlist",
+                  "restrictionEnumList": [
+                    "Departure",
+                    "Arrival"
+                  ],
+                  "modelDescription": "Select from the list of values"
+                }
+              ],
+              "childelements": [
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[0-9a-zA-Z]{1,3}",
+                  "model": "pattern",
+                  "modelDescription": "String of the pattern [0-9a-zA-Z]{1,3}",
+                  "description": "Used to specify the reason for a departure irregularity delay. ",
+                  "complex": "NO",
+                  "name": "ReasonCode",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "Used to specify the reason for a departure irregularity delay. ",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "ReasonCode",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "model": "xs:duration",
+                  "modelDescription": "Enter Duration",
+                  "description": "The duration of the delay.  Format PT2H15M.",
+                  "complex": "NO",
+                  "name": "Duration",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The duration of the delay.  Format PT2H15M.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "Duration",
+                    "prefix": ""
+                  },
+                  "choice": false
+                }
+              ],
+              "choiceElementIdentifiers": [],
+              "description": "The reason and duration for a departure or arrival irregularity delay.  ",
+              "complex": "YES",
+              "name": "IrregularityDelay",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 8,
+              "annotation": "The reason and duration for a departure or arrival irregularity delay.  ",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "IrregularityDelay",
+                "prefix": ""
+              },
+              "choice": false,
+              "restrictionEnumList": []
+            },
+            {
+              "attributes": [
+                {
+                  "name": "RepeatIndex",
+                  "required": false,
+                  "description": "Identifies an order for a repdeating item.",
+                  "enabled": false,
+                  "model": "minmaxinclusive",
+                  "minInclusive": "1",
+                  "maxInclusive": "99",
+                  "modelDescription": "Integer of minimum value null and maximum value 99"
+                },
+                {
+                  "name": "Class",
+                  "required": false,
+                  "description": "Specifies a class of service for which the inflight service or meal applies.  Refer to IATA PADIS Code List for data element 9873.",
+                  "enabled": false,
+                  "model": "pattern",
+                  "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                  "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                }
+              ],
+              "childelements": [
+                {
+                  "attributes": [
+                    {
+                      "name": "RepeatIndex",
+                      "required": false,
+                      "description": "Identifies an order for a repdeating item.",
+                      "enabled": false,
+                      "model": "minmaxinclusive",
+                      "minInclusive": "1",
+                      "maxInclusive": "99",
+                      "modelDescription": "Integer of minimum value null and maximum value 99"
+                    }
+                  ],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                  "model": "pattern",
+                  "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                  "description": "The facilities/services off ered during this flight leg.  Refer to IATA PADIS Code List 9932.",
+                  "complex": "YES",
+                  "name": "InflightService",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 20,
+                  "annotation": "The facilities/services off ered during this flight leg.  Refer to IATA PADIS Code List 9932.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "InflightService",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [
+                    {
+                      "name": "RepeatIndex",
+                      "required": false,
+                      "description": "Identifies an order for a repdeating item.",
+                      "enabled": false,
+                      "model": "minmaxinclusive",
+                      "minInclusive": "1",
+                      "maxInclusive": "99",
+                      "modelDescription": "Integer of minimum value null and maximum value 99"
+                    }
+                  ],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                  "model": "pattern",
+                  "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                  "description": "The meal services offered during this flight.  Refer to IATA PADIS Code List 7161.",
+                  "complex": "YES",
+                  "name": "InflightMealService",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 20,
+                  "annotation": "The meal services offered during this flight.  Refer to IATA PADIS Code List 7161.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "InflightMealService",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [
+                    {
+                      "name": "RepeatIndex",
+                      "required": false,
+                      "description": "Identifies an order for a repdeating item.",
+                      "enabled": false,
+                      "model": "minmaxinclusive",
+                      "minInclusive": "1",
+                      "maxInclusive": "99",
+                      "modelDescription": "Integer of minimum value null and maximum value 99"
+                    },
+                    {
+                      "name": "DestinationType",
+                      "required": false,
+                      "description": "Used to specify the destination type such as transit or local or transfer for this pasenger count.",
+                      "enabled": false,
+                      "model": "enumlist",
+                      "restrictionEnumList": [
+                        "Local",
+                        "Transfer",
+                        "Transit"
+                      ],
+                      "modelDescription": "Select from the list of values"
+                    },
+                    {
+                      "name": "Qualifier",
+                      "required": true,
+                      "description": "The type of passenger count.  Reference PSCRM RP1708a par 2.12.6 for the list of SSRs with PRM qualifying codes in addition to PADIS Codeset 6353.  Other codes can be used on a bilateral basis.",
+                      "enabled": true,
+                      "model": "pattern",
+                      "pattern": "[0-9a-zA-Z]{1,4}",
+                      "modelDescription": "String of the pattern [0-9a-zA-Z]{1,4}"
+                    },
+                    {
+                      "name": "OriginationType",
+                      "required": false,
+                      "description": "Used to specify the origination type such as local, transit or transfer.",
+                      "enabled": false,
+                      "model": "enumlist",
+                      "restrictionEnumList": [
+                        "Local",
+                        "Transfer",
+                        "Transit"
+                      ],
+                      "modelDescription": "Select from the list of values"
+                    },
+                    {
+                      "name": "DCS_Usage",
+                      "required": false,
+                      "description": "Used to specify the DCS usage type such as booked, accepted or boarded.",
+                      "enabled": false,
+                      "model": "enumlist",
+                      "restrictionEnumList": [
+                        "Booked",
+                        "Accepted",
+                        "Boarded"
+                      ],
+                      "modelDescription": "Select from the list of values"
+                    },
+                    {
+                      "name": "Usage",
+                      "required": false,
+                      "description": "Used to indicate if this is a planned or actual count.",
+                      "enabled": false,
+                      "model": "enumlist",
+                      "restrictionEnumList": [
+                        "Planned",
+                        "Actual"
+                      ],
+                      "modelDescription": "Select from the list of values"
+                    }
+                  ],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "maxInclusive": "999",
+                  "model": "minmaxinclusive",
+                  "modelDescription": "Integer of minimum value null and maximum value 999",
+                  "description": "The passenger type and count.",
+                  "complex": "YES",
+                  "name": "PaxCount",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 99,
+                  "annotation": "The passenger type and count.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "PaxCount",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "maxInclusive": "999",
+                  "model": "minmaxinclusive",
+                  "modelDescription": "Integer of minimum value null and maximum value 999",
+                  "description": "The seating capacity  by cabin class.",
+                  "complex": "YES",
+                  "name": "SeatCapacity",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The seating capacity  by cabin class.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "SeatCapacity",
+                    "prefix": ""
+                  },
+                  "choice": false
+                }
+              ],
+              "choiceElementIdentifiers": [],
+              "description": "A cabin class for this flight leg.",
+              "complex": "YES",
+              "name": "CabinClass",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 5,
+              "annotation": "A cabin class for this flight leg.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "CabinClass",
+                "prefix": ""
+              },
+              "choice": false,
+              "restrictionEnumList": []
+            },
+            {
+              "attributes": [
+                {
+                  "name": "RepeatIndex",
+                  "required": false,
+                  "description": "Identifies an order for a repdeating item.",
+                  "enabled": false,
+                  "model": "minmaxinclusive",
+                  "minInclusive": "1",
+                  "maxInclusive": "99",
+                  "modelDescription": "Integer of minimum value null and maximum value 99"
+                }
+              ],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+              "model": "pattern",
+              "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+              "description": "Identifies any special cargo on board.  Refer to IATA PADIS Code List CAR.",
+              "complex": "YES",
+              "name": "SpecialCargo",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 20,
+              "annotation": "Identifies any special cargo on board.  Refer to IATA PADIS Code List CAR.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "SpecialCargo",
+                "prefix": ""
+              },
+              "choice": false
+            },
+            {
+              "attributes": [
+                {
+                  "name": "RepeatIndex",
+                  "required": false,
+                  "description": "Identifies an order for a repdeating item.",
+                  "enabled": false,
+                  "model": "minmaxinclusive",
+                  "minInclusive": "1",
+                  "maxInclusive": "99",
+                  "modelDescription": "Integer of minimum value null and maximum value 99"
+                }
+              ],
+              "childelements": [
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])",
+                  "minLength": "2",
+                  "maxLength": "3",
+                  "model": "minmaxlengthpattern",
+                  "modelDescription": "String of the pattern ([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])",
+                  "description": "The marketing airline code.",
+                  "complex": "YES",
+                  "name": "Airline",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The marketing airline code.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "Airline",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[0-9]{1,4}",
+                  "model": "pattern",
+                  "modelDescription": "String of the pattern [0-9]{1,4}",
+                  "description": "The marketing airline flight number.",
+                  "complex": "NO",
+                  "name": "FlightNumber",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The marketing airline flight number.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "FlightNumber",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "model": "xs:date",
+                  "modelDescription": "Select Date",
+                  "description": "The date of departure of the leg on which the codeshare started.",
+                  "complex": "NO",
+                  "name": "OriginationDate",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The date of departure of the leg on which the codeshare started.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "OriginationDate",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "description": "Used to specify the alliance partner(s) for this flight leg.  Refer to IATA PADIS Code List for data element 9906.",
+                  "complex": "NO",
+                  "name": "SharedAlliance",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "Used to specify the alliance partner(s) for this flight leg.  Refer to IATA PADIS Code List for data element 9906.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "SharedAlliance",
+                    "prefix": ""
+                  },
+                  "choice": false,
+                  "restrictionEnumList": []
+                }
+              ],
+              "choiceElementIdentifiers": [],
+              "description": "The code share information for this flight leg.",
+              "complex": "YES",
+              "name": "CodeShareInfo",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 20,
+              "annotation": "The code share information for this flight leg.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "CodeShareInfo",
+                "prefix": ""
+              },
+              "choice": false,
+              "restrictionEnumList": []
+            },
+            {
+              "attributes": [
+                {
+                  "name": "RepeatIndex",
+                  "required": false,
+                  "description": "Identifies an order for a repdeating item.",
+                  "enabled": false,
+                  "model": "minmaxinclusive",
+                  "minInclusive": "1",
+                  "maxInclusive": "99",
+                  "modelDescription": "Integer of minimum value null and maximum value 99"
+                },
+                {
+                  "name": "FlightSequence",
+                  "required": false,
+                  "description": "Indicates if the leg is before (upline) or after (downline) the current leg.",
+                  "enabled": false,
+                  "model": "enumlist",
+                  "restrictionEnumList": [
+                    "downline",
+                    "upline"
+                  ],
+                  "modelDescription": "Select from the list of values"
+                }
+              ],
+              "childelements": [
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])",
+                  "minLength": "2",
+                  "maxLength": "3",
+                  "model": "minmaxlengthpattern",
+                  "modelDescription": "String of the pattern ([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])",
+                  "description": "The operating airline code.",
+                  "complex": "YES",
+                  "name": "Airline",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The operating airline code.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "Airline",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[0-9]{1,4}",
+                  "model": "pattern",
+                  "modelDescription": "String of the pattern [0-9]{1,4}",
+                  "description": "The actual flight number.",
+                  "complex": "NO",
+                  "name": "FlightNumber",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The actual flight number.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "FlightNumber",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[a-zA-Z]{1}",
+                  "model": "pattern",
+                  "modelDescription": "String of the pattern [a-zA-Z]{1}",
+                  "description": "The operational suffix for the flight.",
+                  "complex": "NO",
+                  "name": "OperationalSuffix",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The operational suffix for the flight.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "OperationalSuffix",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[A-Z]{3,4}",
+                  "minLength": "3",
+                  "maxLength": "4",
+                  "model": "minmaxlengthpattern",
+                  "modelDescription": "String of the pattern [A-Z]{3,4}",
+                  "description": "The scheduled departure airport.",
+                  "complex": "YES",
+                  "name": "DepartureAirport",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The scheduled departure airport.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "DepartureAirport",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[A-Z]{3,4}",
+                  "minLength": "3",
+                  "maxLength": "4",
+                  "model": "minmaxlengthpattern",
+                  "modelDescription": "String of the pattern [A-Z]{3,4}",
+                  "description": "The scheduled arrival airport.",
+                  "complex": "YES",
+                  "name": "ArrivalAirport",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The scheduled arrival airport.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "ArrivalAirport",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "model": "xs:date",
+                  "modelDescription": "Select Date",
+                  "description": "The scheduled flight origin date based on the flight not the flight leg.  This date must not change once intialized in an AIDX message.",
+                  "complex": "NO",
+                  "name": "OriginDate",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The scheduled flight origin date based on the flight not the flight leg.  This date must not change once intialized in an AIDX message.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "OriginDate",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "maxInclusive": "99",
+                  "model": "minmaxinclusive",
+                  "modelDescription": "Integer of minimum value null and maximum value 99",
+                  "description": "The repeat or departure attempt number.",
+                  "complex": "YES",
+                  "name": "RepeatNumber",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The repeat or departure attempt number.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "RepeatNumber",
+                    "prefix": ""
+                  },
+                  "choice": false
+                }
+              ],
+              "choiceElementIdentifiers": [],
+              "description": "Associated flight leg routing for the physical aircraft.",
+              "complex": "YES",
+              "name": "AssociatedFlightLegAircraft",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 2,
+              "annotation": "Associated flight leg routing for the physical aircraft.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "AssociatedFlightLegAircraft",
+                "prefix": ""
+              },
+              "choice": false,
+              "restrictionEnumList": []
+            },
+            {
+              "attributes": [
+                {
+                  "name": "RepeatIndex",
+                  "required": false,
+                  "description": "Identifies an order for a repeating item.",
+                  "enabled": false,
+                  "model": "minmaxinclusive",
+                  "minInclusive": "1",
+                  "maxInclusive": "99",
+                  "modelDescription": "Integer of minimum value null and maximum value 99"
+                },
+                {
+                  "name": "FlightSequence",
+                  "required": false,
+                  "description": "Indicates if the leg is before (upline) or afer (downline) the current leg.",
+                  "enabled": false,
+                  "model": "enumlist",
+                  "restrictionEnumList": [
+                    "downline",
+                    "upline"
+                  ],
+                  "modelDescription": "Select from the list of values"
+                }
+              ],
+              "childelements": [
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[A-Z]{3,4}",
+                  "minLength": "3",
+                  "maxLength": "4",
+                  "model": "minmaxlengthpattern",
+                  "modelDescription": "String of the pattern [A-Z]{3,4}",
+                  "description": "The departure airport.",
+                  "complex": "YES",
+                  "name": "DepartureAirport",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The departure airport.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "DepartureAirport",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[A-Z]{3,4}",
+                  "minLength": "3",
+                  "maxLength": "4",
+                  "model": "minmaxlengthpattern",
+                  "modelDescription": "String of the pattern [A-Z]{3,4}",
+                  "description": "The arrival airport.",
+                  "complex": "YES",
+                  "name": "ArrivalAirport",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The arrival airport.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "ArrivalAirport",
+                    "prefix": ""
+                  },
+                  "choice": false
+                }
+              ],
+              "choiceElementIdentifiers": [],
+              "description": "Flight routing information.",
+              "complex": "YES",
+              "name": "AssociatedFlightLegSchedule",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 20,
+              "annotation": "Flight routing information.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "AssociatedFlightLegSchedule",
+                "prefix": ""
+              },
+              "choice": false,
+              "restrictionEnumList": []
+            },
+            {
+              "attributes": [
+                {
+                  "name": "RepeatIndex",
+                  "required": false,
+                  "description": "Identifies an order for a repdeating item.",
+                  "enabled": false,
+                  "model": "minmaxinclusive",
+                  "minInclusive": "1",
+                  "maxInclusive": "99",
+                  "modelDescription": "Integer of minimum value null and maximum value 99"
+                },
+                {
+                  "name": "Qualifier",
+                  "required": true,
+                  "description": "Specifies the type of remark such as general public, staff breakroom, gate. Refer to IATA PADIS Code List for data element 9932.",
+                  "enabled": true,
+                  "model": "pattern",
+                  "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                  "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                },
+                {
+                  "name": "CodeContext",
+                  "required": true,
+                  "description": "Used to specify if the remark text code is from IATA PADIS Code List 2005 or 9750.",
+                  "enabled": true,
+                  "model": "xs:string",
+                  "modelDescription": "A string of characters"
+                },
+                {
+                  "name": "FlightLegScope",
+                  "required": false,
+                  "description": "To specify if information is for a departure or arrival or overall flight.",
+                  "enabled": false,
+                  "model": "enumlist",
+                  "restrictionEnumList": [
+                    "Departure",
+                    "Arrival",
+                    "FlightLeg"
+                  ],
+                  "modelDescription": "Select from the list of values"
+                }
+              ],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+              "model": "pattern",
+              "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+              "description": "A code specifying the remark.  Refer to IATA PADIS Code List for data element 9750 and 2005.",
+              "complex": "YES",
+              "name": "RemarkTextCode",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 50,
+              "annotation": "A code specifying the remark.  Refer to IATA PADIS Code List for data element 9750 and 2005.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "RemarkTextCode",
+                "prefix": ""
+              },
+              "choice": false
+            },
+            {
+              "attributes": [
+                {
+                  "name": "FllightLegScope",
+                  "required": false,
+                  "description": "To specify if information is for a departure or arrival or overall flight.",
+                  "enabled": false,
+                  "model": "enumlist",
+                  "restrictionEnumList": [
+                    "Departure",
+                    "Arrival",
+                    "FlightLeg"
+                  ],
+                  "modelDescription": "Select from the list of values"
+                }
+              ],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "model": "xs:string",
+              "modelDescription": "A string of characters",
+              "description": "\u0027To be used for ad-hoc non-fixed remarks or information where a code set value is not defined, e.g. cargo load information which will constantly differ.",
+              "complex": "YES",
+              "name": "RemarkFreeText",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 2,
+              "annotation": "\u0027To be used for ad-hoc non-fixed remarks or information where a code set value is not defined, e.g. cargo load information which will constantly differ.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "RemarkFreeText",
+                "prefix": ""
+              },
+              "choice": false
+            },
+            {
+              "attributes": [
+                {
+                  "name": "Usage",
+                  "required": true,
+                  "description": "Specifies whether the resource usage is planned or actual.",
+                  "enabled": true,
+                  "model": "enumlist",
+                  "restrictionEnumList": [
+                    "Planned",
+                    "Actual"
+                  ],
+                  "modelDescription": "Select from the list of values"
+                }
+              ],
+              "childelements": [
+                {
+                  "attributes": [
+                    {
+                      "name": "ChargeType",
+                      "required": false,
+                      "description": "Used to specify how the customer using the resource pays.  Refer to IATA PADIS Code List for data element 5903.",
+                      "enabled": false,
+                      "model": "pattern",
+                      "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                      "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                    },
+                    {
+                      "name": "DepartureOrArrival",
+                      "required": true,
+                      "description": "Specifies if the resource is for a departure or arrival.",
+                      "enabled": true,
+                      "model": "enumlist",
+                      "restrictionEnumList": [
+                        "Departure",
+                        "Arrival"
+                      ],
+                      "modelDescription": "Select from the list of values"
+                    }
+                  ],
+                  "childelements": [
+                    {
+                      "attributes": [],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "minLength": "0",
+                      "maxLength": "30",
+                      "model": "minmaxlength",
+                      "modelDescription": "String of minimum length 0 and maximum length 30",
+                      "description": "The area in the airport which the flight uses.",
+                      "complex": "NO",
+                      "name": "AirportZone",
+                      "required": false,
+                      "minOccurs": 0,
+                      "maxOccurs": 1,
+                      "annotation": "The area in the airport which the flight uses.",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "AirportZone",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    },
+                    {
+                      "attributes": [
+                        {
+                          "name": "Qualifier",
+                          "required": true,
+                          "description": "Used to specify the type of aircraft parking position.",
+                          "enabled": true
+                        }
+                      ],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "model": "xs:string",
+                      "modelDescription": "A string of characters",
+                      "description": "Gate or hard stand where the aircraft is located",
+                      "complex": "YES",
+                      "name": "AircraftParkingPosition",
+                      "required": false,
+                      "minOccurs": 0,
+                      "maxOccurs": 1,
+                      "annotation": "Gate or hard stand where the aircraft is located",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "AircraftParkingPosition",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    },
+                    {
+                      "attributes": [
+                        {
+                          "name": "RepeatIndex",
+                          "required": false,
+                          "description": "Identifies an order for a repdeating item.",
+                          "enabled": false,
+                          "model": "minmaxinclusive",
+                          "minInclusive": "1",
+                          "maxInclusive": "99",
+                          "modelDescription": "Integer of minimum value null and maximum value 99"
+                        }
+                      ],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "minLength": "0",
+                      "maxLength": "5",
+                      "model": "minmaxlength",
+                      "modelDescription": "String of minimum length 0 and maximum length 5",
+                      "description": "The public gate which the passengers will use to board or disembark.",
+                      "complex": "YES",
+                      "name": "PassengerGate",
+                      "required": false,
+                      "minOccurs": 0,
+                      "maxOccurs": 3,
+                      "annotation": "The public gate which the passengers will use to board or disembark.",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "PassengerGate",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    },
+                    {
+                      "attributes": [
+                        {
+                          "name": "RepeatIndex",
+                          "required": false,
+                          "description": "Identifies an order for a repdeating item.",
+                          "enabled": false,
+                          "model": "minmaxinclusive",
+                          "minInclusive": "1",
+                          "maxInclusive": "99",
+                          "modelDescription": "Integer of minimum value null and maximum value 99"
+                        }
+                      ],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "minLength": "0",
+                      "maxLength": "5",
+                      "model": "minmaxlength",
+                      "modelDescription": "String of minimum length 0 and maximum length 5",
+                      "description": "An additional location used to transfer passengers to or from a remote parking position.",
+                      "complex": "YES",
+                      "name": "RemoteOperationalGate",
+                      "required": false,
+                      "minOccurs": 0,
+                      "maxOccurs": 3,
+                      "annotation": "An additional location used to transfer passengers to or from a remote parking position.",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "RemoteOperationalGate",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    },
+                    {
+                      "attributes": [],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "minLength": "0",
+                      "maxLength": "4",
+                      "model": "minmaxlength",
+                      "modelDescription": "String of minimum length 0 and maximum length 4",
+                      "description": "The runway.",
+                      "complex": "NO",
+                      "name": "Runway",
+                      "required": false,
+                      "minOccurs": 0,
+                      "maxOccurs": 1,
+                      "annotation": "The runway.",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "Runway",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    },
+                    {
+                      "attributes": [],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "minLength": "0",
+                      "maxLength": "2",
+                      "model": "minmaxlength",
+                      "modelDescription": "String of minimum length 0 and maximum length 2",
+                      "description": "Terminal where the aircraft is located.  Refer to SSIM Appendix D.",
+                      "complex": "NO",
+                      "name": "AircraftTerminal",
+                      "required": false,
+                      "minOccurs": 0,
+                      "maxOccurs": 1,
+                      "annotation": "Terminal where the aircraft is located.  Refer to SSIM Appendix D.",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "AircraftTerminal",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    },
+                    {
+                      "attributes": [
+                        {
+                          "name": "RepeatIndex",
+                          "required": false,
+                          "description": "Identifies an order for a repdeating item.",
+                          "enabled": false,
+                          "model": "minmaxinclusive",
+                          "minInclusive": "1",
+                          "maxInclusive": "99",
+                          "modelDescription": "Integer of minimum value null and maximum value 99"
+                        }
+                      ],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "minLength": "0",
+                      "maxLength": "2",
+                      "model": "minmaxlength",
+                      "modelDescription": "String of minimum length 0 and maximum length 2",
+                      "description": "Terminal where the passengers will be processed.  Refer to SSIM Appendix D.",
+                      "complex": "YES",
+                      "name": "PublicTerminal",
+                      "required": false,
+                      "minOccurs": 0,
+                      "maxOccurs": 3,
+                      "annotation": "Terminal where the passengers will be processed.  Refer to SSIM Appendix D.",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "PublicTerminal",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    },
+                    {
+                      "attributes": [],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "model": "xs:boolean",
+                      "modelDescription": "Select ON/OFF",
+                      "description": "If true, an airside bus will be used for the crew.",
+                      "complex": "NO",
+                      "name": "CrewBusInd",
+                      "required": false,
+                      "minOccurs": 0,
+                      "maxOccurs": 1,
+                      "annotation": "If true, an airside bus will be used for the crew.",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "CrewBusInd",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    },
+                    {
+                      "attributes": [],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "model": "xs:boolean",
+                      "modelDescription": "Select ON/OFF",
+                      "description": "If true, an airside bus will be used for the passengers.",
+                      "complex": "NO",
+                      "name": "PaxBusInd",
+                      "required": false,
+                      "minOccurs": 0,
+                      "maxOccurs": 1,
+                      "annotation": "If true, an airside bus will be used for the passengers.",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "PaxBusInd",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    },
+                    {
+                      "attributes": [
+                        {
+                          "name": "RepeatIndex",
+                          "required": false,
+                          "description": "Identifies an order for a repdeating item.",
+                          "enabled": false,
+                          "model": "minmaxinclusive",
+                          "minInclusive": "1",
+                          "maxInclusive": "99",
+                          "modelDescription": "Integer of minimum value null and maximum value 99"
+                        },
+                        {
+                          "name": "Qualifier",
+                          "required": false,
+                          "description": "The type of baggage claim device.  Refer to IATA PADIS code list BAG.",
+                          "enabled": false,
+                          "model": "pattern",
+                          "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                          "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                        },
+                        {
+                          "name": "AreaLocation",
+                          "required": false,
+                          "description": "The location of the baggage claim device.  Refer to IATA PADIS Code List for data element 9988.",
+                          "enabled": false,
+                          "model": "pattern",
+                          "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                          "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                        },
+                        {
+                          "name": "ServiceClass",
+                          "required": false,
+                          "description": "The class of service for this baggage claim unit.  Refer to  IATA PADIS Code List for data element 9873. ",
+                          "enabled": false,
+                          "model": "pattern",
+                          "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                          "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                        }
+                      ],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "model": "xs:string",
+                      "modelDescription": "A string of characters",
+                      "description": "The number or name of the assigned baggage claim unit. leg.",
+                      "complex": "YES",
+                      "name": "BaggageClaimUnit",
+                      "required": false,
+                      "minOccurs": 0,
+                      "maxOccurs": 5,
+                      "annotation": "The number or name of the assigned baggage claim unit. leg.",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "BaggageClaimUnit",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    },
+                    {
+                      "attributes": [
+                        {
+                          "name": "RepeatIndex",
+                          "required": false,
+                          "description": "Identifies an order for a repdeating item.",
+                          "enabled": false,
+                          "model": "minmaxinclusive",
+                          "minInclusive": "1",
+                          "maxInclusive": "99",
+                          "modelDescription": "Integer of minimum value null and maximum value 99"
+                        }
+                      ],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "model": "xs:string",
+                      "modelDescription": "A string of characters",
+                      "description": "The baggage makeup belt assigned for outgoing bags.",
+                      "complex": "YES",
+                      "name": "BaggageMakeupBelt",
+                      "required": false,
+                      "minOccurs": 0,
+                      "maxOccurs": 5,
+                      "annotation": "The baggage makeup belt assigned for outgoing bags.",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "BaggageMakeupBelt",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    },
+                    {
+                      "attributes": [
+                        {
+                          "name": "Location",
+                          "required": false,
+                          "description": "The area in the passenger terminal where the allocated range of positions for check-in activies is located.  Refer to IATA PADIS Code List for data element 9932.",
+                          "enabled": false,
+                          "model": "pattern",
+                          "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                          "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                        },
+                        {
+                          "name": "RepeatIndex",
+                          "required": false,
+                          "description": "Identifies an order for a repdeating item.",
+                          "enabled": false,
+                          "model": "minmaxinclusive",
+                          "minInclusive": "1",
+                          "maxInclusive": "99",
+                          "modelDescription": "Integer of minimum value null and maximum value 99"
+                        },
+                        {
+                          "name": "Qualifier",
+                          "required": false,
+                          "description": "The type of the allocated range of positions for check-in activities. Refer to IATA PADIS Code List  CHK.",
+                          "enabled": false,
+                          "model": "pattern",
+                          "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                          "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                        },
+                        {
+                          "name": "Class",
+                          "required": false,
+                          "description": "The passenger class of the allocated range of ositions for check-in activites.  Refer to IATA PADIS Code List for data element 9873.",
+                          "enabled": false,
+                          "model": "pattern",
+                          "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                          "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                        }
+                      ],
+                      "childelements": [
+                        {
+                          "attributes": [],
+                          "childelements": [],
+                          "choiceElementIdentifiers": [],
+                          "minLength": "0",
+                          "maxLength": "15",
+                          "model": "minmaxlength",
+                          "modelDescription": "String of minimum length 0 and maximum length 15",
+                          "description": "The start of an allocated range of positions for check-in activities.",
+                          "complex": "NO",
+                          "name": "FirstPosition",
+                          "required": false,
+                          "minOccurs": 0,
+                          "maxOccurs": 1,
+                          "annotation": "The start of an allocated range of positions for check-in activities.",
+                          "qname": {
+                            "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                            "localPart": "FirstPosition",
+                            "prefix": ""
+                          },
+                          "choice": false
+                        },
+                        {
+                          "attributes": [],
+                          "childelements": [],
+                          "choiceElementIdentifiers": [],
+                          "minLength": "0",
+                          "maxLength": "15",
+                          "model": "minmaxlength",
+                          "modelDescription": "String of minimum length 0 and maximum length 15",
+                          "description": "The last of anallocated range of positions for check-in activities.",
+                          "complex": "NO",
+                          "name": "LastPosition",
+                          "required": false,
+                          "minOccurs": 0,
+                          "maxOccurs": 1,
+                          "annotation": "The last of anallocated range of positions for check-in activities.",
+                          "qname": {
+                            "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                            "localPart": "LastPosition",
+                            "prefix": ""
+                          },
+                          "choice": false
+                        }
+                      ],
+                      "choiceElementIdentifiers": [],
+                      "description": "Check in resource information.",
+                      "complex": "YES",
+                      "name": "CheckInInfo",
+                      "required": false,
+                      "minOccurs": 0,
+                      "maxOccurs": 5,
+                      "annotation": "Check in resource information.",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "CheckInInfo",
+                        "prefix": ""
+                      },
+                      "choice": false,
+                      "restrictionEnumList": []
+                    },
+                    {
+                      "attributes": [],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "model": "xs:boolean",
+                      "modelDescription": "Select ON/OFF",
+                      "description": "If true, the departure gate used for this flight leg is an immigaration \u0027pre-cleared\u0027 gate.",
+                      "complex": "NO",
+                      "name": "PreClearedGateInd",
+                      "required": false,
+                      "minOccurs": 0,
+                      "maxOccurs": 1,
+                      "annotation": "If true, the departure gate used for this flight leg is an immigaration \u0027pre-cleared\u0027 gate.",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "PreClearedGateInd",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    },
+                    {
+                      "attributes": [
+                        {
+                          "name": "Qualifier",
+                          "required": false,
+                          "description": "Used to specify the type of de-ice location.  Reference IATA PADIS codeset 9932.",
+                          "enabled": false,
+                          "model": "pattern",
+                          "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                          "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                        }
+                      ],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "pattern": "[0-9a-zA-Z]{1,30}",
+                      "model": "pattern",
+                      "modelDescription": "String of the pattern [0-9a-zA-Z]{1,30}",
+                      "description": "De-ice location, either at aircraft parking position or remote location.",
+                      "complex": "YES",
+                      "name": "DeIceLocation",
+                      "required": false,
+                      "minOccurs": 0,
+                      "maxOccurs": 1,
+                      "annotation": "De-ice location, either at aircraft parking position or remote location.",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "DeIceLocation",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    }
+                  ],
+                  "choiceElementIdentifiers": [],
+                  "description": "The airport resource  for a departure or arrival.",
+                  "complex": "YES",
+                  "name": "Resource",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 2,
+                  "annotation": "The airport resource  for a departure or arrival.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "Resource",
+                    "prefix": ""
+                  },
+                  "choice": false,
+                  "restrictionEnumList": []
+                }
+              ],
+              "choiceElementIdentifiers": [],
+              "description": "The planned and actual airport resources.",
+              "complex": "YES",
+              "name": "AirportResources",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 2,
+              "annotation": "The planned and actual airport resources.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "AirportResources",
+                "prefix": ""
+              },
+              "choice": false,
+              "restrictionEnumList": []
+            },
+            {
+              "attributes": [
+                {
+                  "name": "RepeatIndex",
+                  "required": false,
+                  "description": "Identifies an order for a repdeating item.",
+                  "enabled": false,
+                  "model": "minmaxinclusive",
+                  "minInclusive": "1",
+                  "maxInclusive": "99",
+                  "modelDescription": "Integer of minimum value null and maximum value 99"
+                },
+                {
+                  "name": "TimeType",
+                  "required": false,
+                  "description": "Used to specify the type of operation time.  Refer to IATA PADIS Code List for data element 2005.",
+                  "enabled": false,
+                  "model": "pattern",
+                  "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                  "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                },
+                {
+                  "name": "OperationQualifier",
+                  "required": true,
+                  "description": "The type of time and date value.  Refer to IATA PADIS Code List for data element 2005 and 9750.",
+                  "enabled": true,
+                  "model": "pattern",
+                  "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                  "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                },
+                {
+                  "name": "CodeContext",
+                  "required": true,
+                  "description": "Used to specify if the OperationQualifier is from IATA PADIS Code List 2005 or 9750.",
+                  "enabled": true,
+                  "model": "xs:string",
+                  "modelDescription": "A string of characters"
+                }
+              ],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "model": "union",
+              "description": "Time information related to an arrival or departure.",
+              "complex": "YES",
+              "name": "OperationTime",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 50,
+              "annotation": "Time information related to an arrival or departure.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "OperationTime",
+                "prefix": ""
+              },
+              "choice": false
+            },
+            {
+              "attributes": [],
+              "childelements": [
+                {
+                  "attributes": [
+                    {
+                      "name": "CodeContext",
+                      "required": false,
+                      "description": "Specifies the context of the aircraft type code, i.e., IATA, ICAO or other.  Refer to IATA PADIS Code List for data element 3055.",
+                      "enabled": false,
+                      "model": "pattern",
+                      "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                      "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                    }
+                  ],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[0-9a-zA-Z]{1,4}",
+                  "model": "pattern",
+                  "modelDescription": "String of the pattern [0-9a-zA-Z]{1,4}",
+                  "description": "The IATA or ICAO aircraft type.  Use SSIM Appendix A.",
+                  "complex": "YES",
+                  "name": "AircraftType",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 2,
+                  "annotation": "The IATA or ICAO aircraft type.  Use SSIM Appendix A.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "AircraftType",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "minLength": "3",
+                  "maxLength": "3",
+                  "model": "minmaxlength",
+                  "modelDescription": "String of minimum length 3 and maximum length 3",
+                  "description": "The IATA aircraft subtype.  Use SSIM Appendix A.",
+                  "complex": "NO",
+                  "name": "AircraftSubType",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The IATA aircraft subtype.  Use SSIM Appendix A.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "AircraftSubType",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "minLength": "0",
+                  "maxLength": "10",
+                  "model": "minmaxlength",
+                  "modelDescription": "String of minimum length 0 and maximum length 10",
+                  "description": "The aircraft registration number as assigned by the aircraft manufacturer.",
+                  "complex": "NO",
+                  "name": "Registration",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The aircraft registration number as assigned by the aircraft manufacturer.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "Registration",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "minLength": "0",
+                  "maxLength": "5",
+                  "model": "minmaxlength",
+                  "modelDescription": "String of minimum length 0 and maximum length 5",
+                  "description": "The tail number as painted on the tail.",
+                  "complex": "NO",
+                  "name": "TailNumber",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The tail number as painted on the tail.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "TailNumber",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [
+                    {
+                      "name": "RepeatIndex",
+                      "required": false,
+                      "description": "Identifies an order for a repdeating item.",
+                      "enabled": false,
+                      "model": "minmaxinclusive",
+                      "minInclusive": "1",
+                      "maxInclusive": "99",
+                      "modelDescription": "Integer of minimum value null and maximum value 99"
+                    },
+                    {
+                      "name": "Qualifier",
+                      "required": true,
+                      "description": "The type of crew.  Refer to IATA PADIS Code List for data element 9873.",
+                      "enabled": true,
+                      "model": "pattern",
+                      "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                      "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                    },
+                    {
+                      "name": "CodeContext",
+                      "required": false,
+                      "description": "Used to specify if the airline code is IATA or ICAO.",
+                      "enabled": false,
+                      "model": "pattern",
+                      "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                      "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                    },
+                    {
+                      "name": "Airline",
+                      "required": false,
+                      "description": "The airline for this crew information.",
+                      "enabled": false,
+                      "model": "minmaxlengthpattern",
+                      "pattern": "([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])",
+                      "minLength": "2",
+                      "maxLength": "3",
+                      "modelDescription": "String of the pattern ([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])"
+                    }
+                  ],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "maxInclusive": "99",
+                  "model": "minmaxinclusive",
+                  "modelDescription": "Integer of minimum value null and maximum value 99",
+                  "description": "The crew count per crew type.",
+                  "complex": "YES",
+                  "name": "CrewInfo",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 5,
+                  "annotation": "The crew count per crew type.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "CrewInfo",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [
+                    {
+                      "name": "RepeatIndex",
+                      "required": false,
+                      "description": "Identifies an order for a repdeating item.",
+                      "enabled": false,
+                      "model": "minmaxinclusive",
+                      "minInclusive": "1",
+                      "maxInclusive": "99",
+                      "modelDescription": "Integer of minimum value null and maximum value 99"
+                    },
+                    {
+                      "name": "Qualifier",
+                      "required": true,
+                      "description": "The handling agent type.  Refer to IATA PADIS Code List 3035.",
+                      "enabled": true,
+                      "model": "pattern",
+                      "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                      "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                    },
+                    {
+                      "name": "DepartureOrArrival",
+                      "required": true,
+                      "description": "Specifies if information is for a departure or an arrival flight.",
+                      "enabled": true,
+                      "model": "enumlist",
+                      "restrictionEnumList": [
+                        "Departure",
+                        "Arrival"
+                      ],
+                      "modelDescription": "Select from the list of values"
+                    }
+                  ],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                  "model": "pattern",
+                  "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                  "description": "Identification of the handling agent for the flight leg.",
+                  "complex": "YES",
+                  "name": "AgentInfo",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 5,
+                  "annotation": "Identification of the handling agent for the flight leg.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "AgentInfo",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "minLength": "0",
+                  "maxLength": "10",
+                  "model": "minmaxlength",
+                  "modelDescription": "String of minimum length 0 and maximum length 10",
+                  "description": "The airline ship/fleet number as assigned by the airline.",
+                  "complex": "NO",
+                  "name": "FleetNumber",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "The airline ship/fleet number as assigned by the airline.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "FleetNumber",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "minLength": "0",
+                  "maxLength": "8",
+                  "model": "minmaxlength",
+                  "modelDescription": "String of minimum length 0 and maximum length 8",
+                  "description": "As assigned by the airline.",
+                  "complex": "NO",
+                  "name": "CallSign",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 1,
+                  "annotation": "As assigned by the airline.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "CallSign",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [
+                    {
+                      "name": "DestinationType",
+                      "required": false,
+                      "description": "DestinationType",
+                      "enabled": false,
+                      "model": "enumlist",
+                      "restrictionEnumList": [
+                        "Local",
+                        "Transfer",
+                        "Transit"
+                      ],
+                      "modelDescription": "Select from the list of values"
+                    }
+                  ],
+                  "childelements": [
+                    {
+                      "attributes": [],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                      "model": "pattern",
+                      "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                      "description": "Type of dead load. Refer to IATA PADIS code list for data element 7085",
+                      "complex": "NO",
+                      "name": "Type",
+                      "required": true,
+                      "minOccurs": 1,
+                      "maxOccurs": 1,
+                      "annotation": "Type of dead load. Refer to IATA PADIS code list for data element 7085",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "Type",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    },
+                    {
+                      "attributes": [
+                        {
+                          "name": "MeasurementUnit",
+                          "required": false,
+                          "description": "The unit used to measure the weight.\n\t\t\t\t\t\t",
+                          "enabled": false,
+                          "model": "enumlist",
+                          "restrictionEnumList": [
+                            "Kilogram",
+                            "Pound",
+                            "Ton",
+                            "Tonne",
+                            "Litre",
+                            "USGallon",
+                            "ImperialGallon",
+                            "CubicMetre",
+                            "Centigrade",
+                            "Fahrenheit"
+                          ],
+                          "modelDescription": "Select from the list of values"
+                        }
+                      ],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "model": "xs:decimal",
+                      "modelDescription": "A decimal number",
+                      "description": "A weight and unit of measurement.",
+                      "complex": "YES",
+                      "name": "Weight",
+                      "required": false,
+                      "minOccurs": 0,
+                      "maxOccurs": 1,
+                      "annotation": "A weight and unit of measurement.",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "Weight",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    }
+                  ],
+                  "choiceElementIdentifiers": [],
+                  "complex": "YES",
+                  "name": "DeadLoad",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 99,
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "DeadLoad",
+                    "prefix": ""
+                  },
+                  "choice": false,
+                  "restrictionEnumList": []
+                },
+                {
+                  "attributes": [
+                    {
+                      "name": "RepeatIndex",
+                      "required": false,
+                      "description": "Identifies an order for a repeating item.",
+                      "enabled": false,
+                      "restrictionEnumList": []
+                    },
+                    {
+                      "name": "DestinationType",
+                      "required": false,
+                      "description": "Used to specify the destination type such as local, transit or transfer.",
+                      "enabled": false,
+                      "model": "enumlist",
+                      "restrictionEnumList": [
+                        "Local",
+                        "Transfer",
+                        "Transit"
+                      ],
+                      "modelDescription": "Select from the list of values"
+                    },
+                    {
+                      "name": "ServiceClass",
+                      "required": false,
+                      "description": "Specifies a class of service for the baggage loaded information.  Refer to IATA PADIS Code List for data element 9873.",
+                      "enabled": false,
+                      "model": "pattern",
+                      "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                      "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                    }
+                  ],
+                  "childelements": [
+                    {
+                      "attributes": [
+                        {
+                          "name": "Location",
+                          "required": true,
+                          "description": "The location of the baggage count on the aircraft., i.e. Bin name or ULD ID. Repeating group to cover the different bins and total.",
+                          "enabled": true,
+                          "model": "xs:string",
+                          "modelDescription": "A string of characters"
+                        }
+                      ],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "description": "Number of bags for a destination type and cabin class in a specified location.",
+                      "complex": "YES",
+                      "name": "BagCount",
+                      "required": false,
+                      "minOccurs": 0,
+                      "maxOccurs": 50,
+                      "annotation": "Number of bags for a destination type and cabin class in a specified location.",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "BagCount",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    },
+                    {
+                      "attributes": [],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "model": "xs:decimal",
+                      "modelDescription": "A decimal number",
+                      "description": "Weight of baggage loaded on the aircraft ",
+                      "complex": "YES",
+                      "name": "Weight",
+                      "required": false,
+                      "minOccurs": 0,
+                      "maxOccurs": 1,
+                      "annotation": "Weight of baggage loaded on the aircraft ",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "Weight",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    }
+                  ],
+                  "choiceElementIdentifiers": [],
+                  "description": "Baggage information for this flight.",
+                  "complex": "YES",
+                  "name": "Baggage",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 99,
+                  "annotation": "Baggage information for this flight.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "Baggage",
+                    "prefix": ""
+                  },
+                  "choice": false,
+                  "restrictionEnumList": []
+                },
+                {
+                  "attributes": [],
+                  "childelements": [
+                    {
+                      "attributes": [],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "model": "enumlist",
+                      "modelDescription": "Select from the list of values",
+                      "description": "Type of  fuel data: Fuel Uplift, Fuel Onboard, Trip Fuel, Take off Fuel ",
+                      "complex": "YES",
+                      "name": "Type",
+                      "required": true,
+                      "minOccurs": 1,
+                      "maxOccurs": 1,
+                      "annotation": "Type of  fuel data: Fuel Uplift, Fuel Onboard, Trip Fuel, Take off Fuel ",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "Type",
+                        "prefix": ""
+                      },
+                      "choice": false,
+                      "restrictionEnumList": [
+                        "FuelUplift",
+                        "FuelOnboard",
+                        "TripFuel",
+                        "TakeoffFuel",
+                        "Other_"
+                      ]
+                    },
+                    {
+                      "attributes": [
+                        {
+                          "name": "MeasurementUnit",
+                          "required": false,
+                          "description": "The unit used to measure the weight.\n\t\t\t\t\t\t",
+                          "enabled": false,
+                          "model": "enumlist",
+                          "restrictionEnumList": [
+                            "Kilogram",
+                            "Pound",
+                            "Ton",
+                            "Tonne",
+                            "Litre",
+                            "USGallon",
+                            "ImperialGallon",
+                            "CubicMetre",
+                            "Centigrade",
+                            "Fahrenheit"
+                          ],
+                          "modelDescription": "Select from the list of values"
+                        }
+                      ],
+                      "childelements": [],
+                      "choiceElementIdentifiers": [],
+                      "model": "xs:decimal",
+                      "modelDescription": "A decimal number",
+                      "description": "The quanity of fuel and the unit of measurement.",
+                      "complex": "YES",
+                      "name": "Quantity",
+                      "required": true,
+                      "minOccurs": 1,
+                      "maxOccurs": 1,
+                      "annotation": "The quanity of fuel and the unit of measurement.",
+                      "qname": {
+                        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                        "localPart": "Quantity",
+                        "prefix": ""
+                      },
+                      "choice": false
+                    }
+                  ],
+                  "choiceElementIdentifiers": [],
+                  "description": "The measurement of fuel for a specified state of the aircraft movment.",
+                  "complex": "YES",
+                  "name": "Fuel",
+                  "required": false,
+                  "minOccurs": 0,
+                  "maxOccurs": 9,
+                  "annotation": "The measurement of fuel for a specified state of the aircraft movment.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "Fuel",
+                    "prefix": ""
+                  },
+                  "choice": false,
+                  "restrictionEnumList": []
+                }
+              ],
+              "choiceElementIdentifiers": [],
+              "description": "Aircraft information for the the flight leg.",
+              "complex": "YES",
+              "name": "AircraftInfo",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 1,
+              "annotation": "Aircraft information for the the flight leg.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "AircraftInfo",
+                "prefix": ""
+              },
+              "choice": false,
+              "restrictionEnumList": []
+            },
+            {
+              "attributes": [],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+              "model": "pattern",
+              "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+              "description": "Specifies the type of clearance agreement.  Refer to IATA PADIS Code List for data element 9970.",
+              "complex": "NO",
+              "name": "ClearanceAgreement",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 1,
+              "annotation": "Specifies the type of clearance agreement.  Refer to IATA PADIS Code List for data element 9970.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "ClearanceAgreement",
+                "prefix": ""
+              },
+              "choice": false
+            },
+            {
+              "attributes": [],
+              "childelements": [
+                {
+                  "attributes": [
+                    {
+                      "name": "CodeContext",
+                      "required": false,
+                      "description": "Specifies the context of the airline code, such as IATA or ICAO.  Refer to IATA PADIS Code List for data element 3055.",
+                      "enabled": false,
+                      "model": "pattern",
+                      "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                      "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                    }
+                  ],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])",
+                  "minLength": "2",
+                  "maxLength": "3",
+                  "model": "minmaxlengthpattern",
+                  "modelDescription": "String of the pattern ([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])",
+                  "description": "Specifies how the carrier code should be shown on a public display.",
+                  "complex": "YES",
+                  "name": "AirlineType",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "Specifies how the carrier code should be shown on a public display.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "AirlineType",
+                    "prefix": ""
+                  },
+                  "choice": false
+                },
+                {
+                  "attributes": [],
+                  "childelements": [],
+                  "choiceElementIdentifiers": [],
+                  "pattern": "[0-9]{1,4}",
+                  "model": "pattern",
+                  "modelDescription": "String of the pattern [0-9]{1,4}",
+                  "description": "The flight number to be shown in a public display.",
+                  "complex": "NO",
+                  "name": "FlightNumber",
+                  "required": true,
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "annotation": "The flight number to be shown in a public display.",
+                  "qname": {
+                    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                    "localPart": "FlightNumber",
+                    "prefix": ""
+                  },
+                  "choice": false
+                }
+              ],
+              "choiceElementIdentifiers": [],
+              "description": "Specifies how a flight should be shown on a public display.",
+              "complex": "YES",
+              "name": "PublicFlightDisplay",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 1,
+              "annotation": "Specifies how a flight should be shown on a public display.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "PublicFlightDisplay",
+                "prefix": ""
+              },
+              "choice": false,
+              "restrictionEnumList": []
+            },
+            {
+              "attributes": [
+                {
+                  "name": "CodeContext",
+                  "required": false,
+                  "description": "Specifies the context of the flight crew airline code, such as IATA or ICAO.  Refer to  IATA PADIS Code List for data element 3055.",
+                  "enabled": false,
+                  "model": "pattern",
+                  "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                  "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                }
+              ],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "pattern": "([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])",
+              "minLength": "2",
+              "maxLength": "3",
+              "model": "minmaxlengthpattern",
+              "modelDescription": "String of the pattern ([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])",
+              "description": "The flight crew airline code",
+              "complex": "YES",
+              "name": "FlightCrewAirline",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 1,
+              "annotation": "The flight crew airline code",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "FlightCrewAirline",
+                "prefix": ""
+              },
+              "choice": false
+            },
+            {
+              "attributes": [
+                {
+                  "name": "CodeContext",
+                  "required": false,
+                  "description": "Specifies the context of the cabin crew airline code, such as IATA or ICAO.  Refer to  IATA PADIS Code List for data element 3055.",
+                  "enabled": false,
+                  "model": "pattern",
+                  "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                  "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                }
+              ],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "pattern": "([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])",
+              "minLength": "2",
+              "maxLength": "3",
+              "model": "minmaxlengthpattern",
+              "modelDescription": "String of the pattern ([A-Z]{3}|[A-Z]{2})|([0-9][A-Z])|([A-Z][0-9])",
+              "description": "The cabin crew airline code",
+              "complex": "YES",
+              "name": "CabinCrewAirline",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 1,
+              "annotation": "The cabin crew airline code",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "CabinCrewAirline",
+                "prefix": ""
+              },
+              "choice": false
+            },
+            {
+              "attributes": [
+                {
+                  "name": "RepeatIndex",
+                  "required": false,
+                  "description": "Identifies an order for a repeating item.",
+                  "enabled": false,
+                  "model": "minmaxinclusive",
+                  "minInclusive": "1",
+                  "maxInclusive": "99",
+                  "modelDescription": "Integer of minimum value null and maximum value 99"
+                },
+                {
+                  "name": "TimeType",
+                  "required": false,
+                  "description": "Used to specify the basis of the duration (e.g. estimated or actual0.  Refere to IATA PADIS Code List for data element 2005 or 9750.",
+                  "enabled": false,
+                  "model": "pattern",
+                  "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                  "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                },
+                {
+                  "name": "OperationQualifier",
+                  "required": false,
+                  "description": "The operation to which the duration relates.  Refer to IATA PADIS Code List for data element 2005 and 9750.",
+                  "enabled": false,
+                  "model": "pattern",
+                  "pattern": "[0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}",
+                  "modelDescription": "String of the pattern [0-9A-Z]{1,3}(\\.[A-Z]{3}(\\.X){0,1}){0,1}"
+                }
+              ],
+              "childelements": [],
+              "choiceElementIdentifiers": [],
+              "model": "xs:duration",
+              "modelDescription": "Enter Duration",
+              "description": "Duration information related to flight operations.",
+              "complex": "YES",
+              "name": "OperationDuration",
+              "required": false,
+              "minOccurs": 0,
+              "maxOccurs": 20,
+              "annotation": "Duration information related to flight operations.",
+              "qname": {
+                "namespaceURI": "http://www.iata.org/IATA/2007/00",
+                "localPart": "OperationDuration",
+                "prefix": ""
+              },
+              "choice": false
+            }
+          ],
+          "choiceElementIdentifiers": [],
+          "description": "Flight leg information.",
+          "complex": "YES",
+          "name": "LegData",
+          "required": true,
+          "minOccurs": 1,
+          "maxOccurs": 1,
+          "annotation": "Flight leg information.",
+          "qname": {
+            "namespaceURI": "http://www.iata.org/IATA/2007/00",
+            "localPart": "LegData",
+            "prefix": ""
+          },
+          "choice": false,
+          "restrictionEnumList": []
+        },
+        {
+          "attributes": [],
+          "childelements": [],
+          "choiceElementIdentifiers": [],
+          "description": "Allows extensions to be added to the IATA specification per trading partner agreement.",
+          "complex": "YES",
+          "name": "TPA_Extension",
+          "required": false,
+          "minOccurs": 0,
+          "maxOccurs": 1,
+          "annotation": "Allows extensions to be added to the IATA specification per trading partner agreement.",
+          "qname": {
+            "namespaceURI": "http://www.iata.org/IATA/2007/00",
+            "localPart": "TPA_Extension",
+            "prefix": ""
+          },
+          "choice": false,
+          "restrictionEnumList": []
+        }
+      ],
+      "choiceElementIdentifiers": [],
+      "description": "A collection of flight legs.",
+      "complex": "YES",
+      "name": "FlightLeg",
+      "required": true,
+      "minOccurs": 1,
+      "maxOccurs": 9223372036854775807,
+      "annotation": "A collection of flight legs.",
+      "qname": {
+        "namespaceURI": "http://www.iata.org/IATA/2007/00",
+        "localPart": "FlightLeg",
+        "prefix": ""
+      },
+      "choice": false,
+      "restrictionEnumList": []
+    }
+  ],
+  "choiceElementIdentifiers": [],
+  "description": "Used to push update flight leg data from an airline to an airport.",
+  "complex": "YES",
+  "name": "IATA_AIDX_FlightLegNotifRQ",
+  "required": true,
+  "minOccurs": 1,
+  "maxOccurs": 1,
+  "annotation": "Used to push update flight leg data from an airline to an airport.",
+  "qname": {
+    "namespaceURI": "http://www.iata.org/IATA/2007/00",
+    "localPart": "IATA_AIDX_FlightLegNotifRQ",
+    "prefix": ""
+  },
+  "choice": false,
+  "restrictionEnumList": []
+}

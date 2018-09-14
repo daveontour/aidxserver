@@ -1,0 +1,75 @@
+[
+	{
+		"groupTitle": "AIDX 17.1 Schemas",
+		"documents": [
+			{
+				"title": "FlightLegNotifRQ",
+				"url": "./aidx17.1/FlightLegNotifRQ/IATA_AIDX_FlightLegNotifRQ.html"
+			},			
+			{
+				"title": "FlightLegRQ",
+				"url": "./aidx17.1/FlightLegRQ/IATA_AIDX_FlightLegRQ.html"
+			},			
+			{
+				"title": "FlightLegRS",
+				"url": "./aidx17.1/FlightLegRS/IATA_AIDX_FlightLegRS.html"
+			},			
+			{
+				"title": "Common Types",
+				"url": "./aidx17.1/CommonTypes/IATA_AIDX_CommonTypes.html"
+			}			
+		]
+	},
+		{
+		"groupTitle": "16.1 Implementation Guide",
+		"documents": [
+			{
+				"title": "Implementation Guide",
+				"url": "https://www.iata.org/publications/Documents/AIDX%20XML%20Imp%20Guide%20v16.1.pdf"
+			}			
+		]
+	},
+		{
+		"groupTitle": "PADIS Code Sets",
+		"documents": [
+			{
+				"title": "Code Set 17.1",
+				"url": "./codeset/Code_Set_Directory_17.1.pdf"
+			},
+			{
+				"title": "Code Set 17.2",
+				"url": "./codeset/Code_Set_Directory_17.2.pdf"
+			},
+			{
+				"title": "Code Set 18.1",
+				"url": "./codeset/Code_Set_Directory_18.1.pdf"
+			}		
+		]
+	},
+			{
+		"groupTitle": "Download AIDX Schema",
+		"documents": [
+			{
+				"title": "AIDX 16.1",
+				"url": "./download/16_1_schemas.zip"
+			},
+			{
+				"title": "AIDX 17.2",
+				"url": "./download/17_2_schemas.zip"
+			},
+			{
+				"title": "AIDX 18.1",
+				"url": "./download/18_1.zip"
+			}				
+		]
+	},
+	{
+		"groupTitle": "AIP Schema",
+		"documents": [
+			{
+				"title": "AIP v44",
+				"url": "./aipv44/SITA_AIP_Message.html"
+			}		
+		]
+	}
+]

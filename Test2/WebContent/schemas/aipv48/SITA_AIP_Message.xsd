@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (http://www.altova.com) by ﻿DD () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:aip="http://www.sita.aero/aip/XMLSchema" xmlns:soap="http://www.w3.org/2001/12/soap-envelope" targetNamespace="http://www.w3.org/2001/12/soap-envelope" elementFormDefault="qualified" attributeFormDefault="unqualified" version="48">
+	<xs:import namespace="http://www.sita.aero/aip/XMLSchema" schemaLocation="AIPComplexTypes.xsd"/>
+	<xs:element name="Envelope" type="soap:Envelope"/>
+	<xs:complexType name="Envelope">
+		<xs:annotation>
+			<xs:documentation>SOAP Envelope</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Header" type="soap:Header"/>
+			<xs:element name="Body" type="soap:Body"/>
+		</xs:sequence>
+		<xs:attribute name="encodingStyle" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:anyURI">
+					<xs:enumeration value="http://www.w3.org/2001/12/soap-encoding"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="Header">
+		<xs:annotation>
+			<xs:documentation>SOAP Header</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MessageMetadata" type="aip:MessageMetadata">
+				<xs:annotation>
+					<xs:documentation>Container for message metadata</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperationData" type="aip:RequestCorrelation" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Body">
+		<xs:annotation>
+			<xs:documentation>SOAP Body</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="aip:PublishFlightDataInput" minOccurs="0"/>
+			<xs:element ref="aip:PublishFlightDataResponse" minOccurs="0"/>
+			<xs:element ref="aip:GetFlightDataInput" minOccurs="0"/>
+			<xs:element ref="aip:GetFlightDataResponse" minOccurs="0"/>
+			<xs:element ref="aip:PublishGenericDataInput" minOccurs="0"/>
+			<xs:element ref="aip:PublishGenericDataResponse" minOccurs="0"/>
+			<xs:element ref="aip:SubscribeInput" minOccurs="0"/>
+			<xs:element ref="aip:SubscribeResponse" minOccurs="0"/>
+			<xs:element ref="aip:UnsubscribeInput" minOccurs="0"/>
+			<xs:element ref="aip:UnsubscribeResponse" minOccurs="0"/>
+			<xs:element ref="aip:PublishSITATexDataInput" minOccurs="0"/>
+			<xs:element ref="aip:PublishSITATexDataResponse" minOccurs="0"/>
+			<xs:element ref="aip:PublishFlightScheduleDataInput" minOccurs="0"/>
+			<xs:element ref="aip:PublishFlightScheduleDataResponse" minOccurs="0"/>
+			<xs:element ref="aip:PublishReferenceDataAirlineInput" minOccurs="0"/>
+			<xs:element ref="aip:PublishReferenceDataAirlineResponse" minOccurs="0"/>
+			<xs:element ref="aip:GetReferenceDataAirlineInput" minOccurs="0"/>
+			<xs:element ref="aip:GetReferenceDataAirlineResponse" minOccurs="0"/>
+			<xs:element ref="aip:PublishReferenceDataAirportInput" minOccurs="0"/>
+			<xs:element ref="aip:PublishReferenceDataAirportResponse" minOccurs="0"/>
+			<xs:element ref="aip:GetReferenceDataAirportInput" minOccurs="0"/>
+			<xs:element ref="aip:GetReferenceDataAirportResponse" minOccurs="0"/>
+			<xs:element ref="aip:PublishReferenceDataAircraftTypeInput" minOccurs="0"/>
+			<xs:element ref="aip:PublishReferenceDataAircraftTypeResponse" minOccurs="0"/>
+			<xs:element ref="aip:GetReferenceDataAircraftTypeInput" minOccurs="0"/>
+			<xs:element ref="aip:GetReferenceDataAircraftTypeResponse" minOccurs="0"/>
+			<xs:element ref="aip:PublishReferenceDataAircraftInput" minOccurs="0"/>
+			<xs:element ref="aip:PublishReferenceDataAircraftResponse" minOccurs="0"/>
+			<xs:element ref="aip:GetReferenceDataAircraftInput" minOccurs="0"/>
+			<xs:element ref="aip:GetReferenceDataAircraftResponse" minOccurs="0"/>
+			<xs:element ref="aip:PublishEquipmentStatusInput" minOccurs="0"/>
+			<xs:element ref="soap:Fault" minOccurs="0"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="detail">
+		<xs:sequence>
+			<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:anyAttribute namespace="##any" processContents="lax"/>
+	</xs:complexType>
+	<xs:complexType name="Fault" final="extension">
+		<xs:sequence>
+			<xs:element name="faultcode" type="xs:QName"/>
+			<xs:element name="faultstring" type="xs:string"/>
+			<xs:element name="faultactor" type="xs:anyURI" minOccurs="0"/>
+			<xs:element name="detail" type="soap:detail" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Fault" type="soap:Fault"/>
+</xs:schema>

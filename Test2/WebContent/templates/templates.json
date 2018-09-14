@@ -1,0 +1,80 @@
+{
+	"standalone": [
+				{
+					"title": "16.1 IATA_AIDX_FlightLegNotifRQ",
+					"value": "IATA_AIDX_FlightLegNotifRQ",
+					"templateFile": "/basic/flightLegNotifRQ.ftl"
+				},
+				{
+					"title": "16.1 IATA_AIDX_FlightLegRQ",
+					"value": "IATA_AIDX_FlightLegRQ",
+					"templateFile": "/basic/flightLegRQ.ftl"
+				},
+				{
+					"title": "16.1 IATA_AIDX_FlightLegRS",
+					"value": "IATA_AIDX_FlightLegRS",
+					"templateFile": "/basic/flightLegRS.ftl"
+				}
+	],
+	"groups": [
+		{
+			"groupTitle": "AIDX 16.1 Normal Sequence",
+			"templates": [
+				{
+					"title": "Full Normal Sequence",
+					"value": "normalsequence",
+					"templateFile": "/normal/normalsequence.ftl"
+				},
+				{
+					"title": "Normal",
+					"value": "normal",
+					"templateFile": "/normal/normal.ftl"
+				},
+				{
+					"title": "Departed",
+					"value": "departed",
+					"templateFile": "/normal/normal.departed.ftl"
+				},
+				{
+					"title": "Airborne",
+					"value": "airborne",
+					"templateFile": "/normal/normal.airborne.ftl"
+				},{
+					"title": "Touch Down",
+					"value": "touchdown",
+					"templateFile": "/normal/normal.touchdown.ftl"
+				},{
+					"title": "Arrival",
+					"value": "arrival",
+					"templateFile": "/normal/normal.arrival.ftl"
+				}
+			]
+		},
+				{
+			"groupTitle": "AIDX 16.1 Delete Flight",
+			"templates": [
+				{
+					"title": "Delete Flight",
+					"value": "delete",
+					"templateFile": "/delete/delete.ftl"
+				}
+			]
+		},
+				{
+			"groupTitle": "AIDX 16.1 Cancel Flight Sequence",
+			"templates": [
+				{
+					"title": "Cancel Flight",
+					"value": "cancelsequence",
+					"templateFile": "/cancel/cancelsequence.ftl"
+				},
+				{
+					"title": "Simple Cancel Message",
+					"value": "cancel",
+					"templateFile": "/cancel/cancel.ftl"
+				}
+				
+			]
+		}
+	]
+}
