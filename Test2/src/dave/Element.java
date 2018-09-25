@@ -10,10 +10,12 @@ import org.apache.ws.commons.schema.XmlSchemaChoice;
 import org.apache.ws.commons.schema.XmlSchemaChoiceMember;
 import org.apache.ws.commons.schema.XmlSchemaComplexType;
 import org.apache.ws.commons.schema.XmlSchemaElement;
+import org.apache.ws.commons.schema.XmlSchemaSequence;
 import org.apache.ws.commons.schema.XmlSchemaSimpleType;
 import org.apache.ws.commons.schema.XmlSchemaSimpleTypeContent;
 import org.apache.ws.commons.schema.XmlSchemaSimpleTypeList;
 import org.apache.ws.commons.schema.XmlSchemaSimpleTypeRestriction;
+import org.apache.ws.commons.schema.utils.XmlSchemaRef;
 import org.apache.ws.commons.schema.walker.XmlSchemaAttrInfo;
 
 public class Element extends SchemaBase{
@@ -163,10 +165,23 @@ public class Element extends SchemaBase{
 
 		Iterator<XmlSchemaChoiceMember> it = choice.getItems().iterator();
 
+		int i = 0;
 		while (it.hasNext()) {
+			i++;
 			Object member = it.next();
-			XmlSchemaElement e = (XmlSchemaElement) member;
-			choiceElementIdentifiers.add(e.getName());
+			
+			if (member instanceof XmlSchemaElement) {
+				XmlSchemaElement e = (XmlSchemaElement) member;
+				String name = e.getName();
+				if (name == null) {
+					name = e.getRef().getTarget().getName();
+				}
+				choiceElementIdentifiers.add(name);				
+			} else 	if (member instanceof XmlSchemaSequence ) {
+				choiceElementIdentifiers.add("Sequence Type");				
+			} else {
+				choiceElementIdentifiers.add("Work It Out");				
+			}
 		}
 	}
 }

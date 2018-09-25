@@ -56,6 +56,7 @@ public class JSONServlet extends HttpServlet {
 		FileReader fileReader = null;
 		try {
 			File file = new File("C:\\Users\\dave_\\eclipse-workspace\\Generate\\IATA_AIDX_FlightLegNotifRQ.xsd");
+//			File file = new File("C:\\Users\\dave_\\eclipse-workspace\\Generate\\SITA_AIP_Message.xsd");
 			try {
 				fileReader = new FileReader(file);
 			} catch (FileNotFoundException e) {
@@ -84,6 +85,7 @@ public class JSONServlet extends HttpServlet {
 		XmlSchemaWalker walker = new XmlSchemaWalker(collection, visitor);
 		try {
 			XmlSchemaElement elem = getElementOf(collection, "IATA_AIDX_FlightLegNotifRQ");
+//			XmlSchemaElement elem = getElementOf(collection, "Envelope");
 			walker.walk(elem);
 		} catch (Exception e) {
 			e.printStackTrace();

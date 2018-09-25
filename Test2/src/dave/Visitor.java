@@ -38,11 +38,6 @@ public class Visitor implements XmlSchemaVisitor {
 	public void onEnterElement(XmlSchemaElement element, XmlSchemaTypeInfo typeInfo, boolean previouslyVisited) {
 		
 		Element el = new Element(element, this.extractor);	
-//		
-//		if (el.elementName.equals("Airline")) {
-//			SOP ("AIRLINE ELEMENT");
-//		}
-
 
 		
 		if (rootOutput == null) {

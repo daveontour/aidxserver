@@ -24,6 +24,7 @@ public class Test2 {
 		FileReader fileReader = null;
 		try {
 			File file = new File("C:\\Users\\dave_\\eclipse-workspace\\Generate\\IATA_AIDX_FlightLegNotifRQ.xsd");
+//			File file = new File("C:\\Users\\dave_\\eclipse-workspace\\Generate\\SITA_AIP_Message.xsd");
 			fileReader = new FileReader(file);
 
 			collection = new XmlSchemaCollection();
@@ -47,6 +48,7 @@ public class Test2 {
 		XmlSchemaWalker walker = new XmlSchemaWalker(collection, visitor);
 		try {
 			XmlSchemaElement elem = getElementOf(collection, "IATA_AIDX_FlightLegNotifRQ");
+//			XmlSchemaElement elem = getElementOf(collection, "Envelope");
 			walker.walk(elem);
 		} catch (Exception e) {
 			e.printStackTrace();
